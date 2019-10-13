@@ -1,0 +1,227 @@
+﻿@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="modal fade" id="fileManager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title text-center" id="exampleModalLongTitle"><strong>File Manager Shunshine</strong></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <button class="btn btn-success" id="btnSwichFileList">Files list</button>
+                            <button class="btn btn-dark" id="btnSwichUpload">Upload</button>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary">Go!</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="contentListFile">
+                        <div class="col-sm-2 col-md-2" style="min-height: 300px; background: aliceblue; border-radius: 5px">
+                            <ul class="menu-muilty" id="fm-sidebar">
+                                <li class="shunshine-active active-change"><i class="fa fa-folder" aria-hidden="true"></i> All</li>
+                                <li class="active-change"><i class="fa fa-folder" aria-hidden="true"></i> File</li>
+                                <li class="active-change">
+                                    <i class="fa fa-folder" aria-hidden="true"></i> Image
+                                    <div id="fileManagerSideberContent"></div>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-10 col-md-10">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
+                                        <label class="image-checkbox">
+                                            <img class="img-responsive" src="https://dummyimage.com/600x400/000/fff" />
+                                            <input type="checkbox" name="image[]" value="" />
+                                            <i class="fa fa-check hidden"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
+                                        <label class="image-checkbox">
+                                            <img class="img-responsive" src="https://dummyimage.com/600x400/000/fff" />
+                                            <input type="checkbox" name="image[]" value="" />
+                                            <i class="fa fa-check hidden"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="contentFileUpload" style="display: none">
+
+                        <div class="container-fluid" id="shunshine-drop">
+                            <div id="actions" class="row">
+                                <div class="col-lg-7">
+                                    <!-- The fileinput-button span is used to style the file input field as button -->
+                                    <span class="btn btn-success fileinput-button " id="btnAddUpload">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>Add files...</span>
+
+                                    </span>
+                                    <button type="submit" id="btnStartUpload" class="btn btn-primary start">
+                                        <i class="glyphicon glyphicon-upload"></i>
+                                        <span>Start upload</span>
+                                    </button>
+                                </div>
+                                <input type="file" class="hidden" id="txtAddUpload" name="txtAddUpload" multiple />
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="row" style="height: 200px; width:100%; border: 2px #21cbcb dotted">
+                                <h3 class="text-center" style="line-height:200px" id="total-file-upload">0 files upload</h3>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/app/shrared/file-manager/index.js"></script>
+<script>
+
+    var fileManagerController = new FileManagerController(
+        "@Url.Action("GetAllFolder", "FileManager", new { Area = "admin" })"
+    );
+    fileManagerController.Initial();
+
+        $(".image-checkbox").each(function () {
+  if ($(this).find('input[type="checkbox"]').first().attr("checked")) {
+    $(this).addClass('image-checkbox-checked');
+  }
+  else {
+    $(this).removeClass('image-checkbox-checked');
+  }
+});
+
+// sync the state to the input
+$(".image-checkbox").on("click", function (e) {
+  $(this).toggleClass('image-checkbox-checked');
+  var $checkbox = $(this).find('input[type="checkbox"]');
+  $checkbox.prop("checked",!$checkbox.prop("checked"))
+
+  e.preventDefault();
+});
+</script>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<div class="modal fade" id="fileManager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title text-center" id="exampleModalLongTitle"><strong>File Manager Shunshine</strong></span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <button class="btn btn-success" id="btnSwichFileList">Files list</button>
+                            <button class="btn btn-dark" id="btnSwichUpload">Upload</button>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                            <div class="input-group">
+                                <input type="text" class="form-control">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-primary">Go!</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="contentListFile">
+                        <div class="col-sm-2 col-md-2" style="min-height: 300px; background: aliceblue; border-radius: 5px">
+                            <ul class="menu-muilty" id="fm-sidebar">
+                                <li class="shunshine-active active-change"><i class="fa fa-folder" aria-hidden="true"></i> All</li>
+                                <li class="active-change"><i class="fa fa-folder" aria-hidden="true"></i> File</li>
+                                <li class="active-change">
+                                    <i class="fa fa-folder" aria-hidden="true"></i> Image
+                                    <div id="fileManagerSideberContent"></div>
+
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-10 col-md-10">
+                            <div class="container-fluid">
+                                <div class="row" id="rowConentImageList">
+                                    <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
+                                        <label class="image-checkbox">
+                                            <img class="img-responsive" src="https://dummyimage.com/600x400/000/fff" />
+                                            <input type="checkbox" name="image[]" value="" />
+                                            <i class="fa fa-check hidden"></i>
+                                        </label>
+                                    </div>
+                                    <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
+                                        <label class="image-checkbox">
+                                            <img class="img-responsive" src="https://dummyimage.com/600x400/000/fff" />
+                                            <input type="checkbox" name="image[]" value="" />
+                                            <i class="fa fa-check hidden"></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" id="contentFileUpload" style="display: none">
+
+                        <div class="container-fluid" id="shunshine-drop">
+                            <div id="actions" class="row">
+                                <div class="col-lg-7">
+                                    <!-- The fileinput-button span is used to style the file input field as button -->
+                                    <span class="btn btn-success fileinput-button " id="btnAddUpload">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                        <span>Add files...</span>
+
+                                    </span>
+                                    <button type="submit" id="btnStartUpload" class="btn btn-primary start">
+                                        <i class="glyphicon glyphicon-upload"></i>
+                                        <span>Start upload</span>
+                                    </button>
+                                </div>
+                                <input type="file" class="hidden" id="txtAddUpload" name="txtAddUpload" multiple />
+                            </div>
+                            <div class="clearfix"></div>
+
+                            <div class="row" style="height: 200px; width:100%; border: 2px #21cbcb dotted">
+                                <h3 class="text-center" style="line-height:200px" id="total-file-upload">0 files upload</h3>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button class="btn btn-secondary">Choose</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="~/app/shrared/file-manager/dropzone-custom.js"></script>
+<script src="~/app/shrared/file-manager/index.js"></script>
+<script>
+
+    var fileManagerController = new FileManagerController(
+        "@Url.Action("GetAllFolder", "FileManager", new { Area = "admin" })"
+    );
+    fileManagerController.Initial();
+
+
+</script>

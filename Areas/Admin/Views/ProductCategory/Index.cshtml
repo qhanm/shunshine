@@ -1,0 +1,154 @@
+﻿@*@model List<ProductCategoryViewModel>*@
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+    <link href="~/admin/dashboard/vendor/switchery/dist/switchery.min.css" rel="stylesheet" />
+    <link rel="stylesheet/less" type="text/css" href="~/admin/css/admin-side/css/treeview-css.less">
+    <link href="~/admin/css/custom.css" rel="stylesheet" />
+}
+<div class="page-title">
+    <div class="title_left">
+        <h3>List Product Category</h3>
+    </div>
+
+
+</div>
+<div class="clearfix"></div>
+<div class="row">
+    <div class="x_panel">
+        <div class="x_title">
+            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createCategory">Create</button>
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#fileManager">Delete</button>
+            <ul class="nav navbar-right panel_toolbox">
+                <li>
+                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li>
+                            <a href="#">Settings 1</a>
+                        </li>
+                        <li>
+                            <a href="#">Settings 2</a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    <a class="close-link"><i class="fa fa-close"></i></a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+            <div class="col-md-3 col-sm-4" id="categoryLeft">
+            </div>
+            <div class="col-md-9 col-sm-8">
+                <div class="row">
+                    <div class="col-sm-3 col-md-3">
+                        <div class="title_left select-paginate">
+                            <select class="form-control" style="width: 70px" id="pageSize">
+                                <option>10</option>
+                                <option>20</option>
+                                <option>50</option>
+                                <option>100</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm=3 col-md-3">
+                        <div class="title_left select-paginate">
+                            <select class="form-control" style="width: 110px" id="slStatus">
+                                <option>All</option>
+                                <option>Active</option>
+                                <option>DeActice</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-6">
+                        <div class="title_right">
+                            <div class="form-group pull-right top_search">
+                                <div class="input-group">
+                                    <input type="text" id="txtSearch" class="form-control" placeholder="Search for...">
+                                    <span class="input-group-btn">
+                                        <button class="btn btn-default" type="button">Go!</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="table-responsive">
+                    <table class="table table-striped jambo_table bulk_action">
+                        <thead>
+                            <tr class="headings">
+                                <th>
+                                    <input type="checkbox" name="checkAll" id="checkAll" value="run" />
+                                </th>
+                                <th class="column-title">Name </th>
+                                <th class="column-title">Slug </th>
+                                <th class="column-title">Status </th>
+                                <th class="column-title">DateCreated </th>
+                                <th class="column-title">Date Modified </th>
+                                <th class="column-title no-link last">
+                                    <span class="nobr">Action</span>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody id="tblContent">
+                        </tbody>
+                    </table>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="" id="pageInfo">
+
+                            </div>
+
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="dataTables_paginate paging_simple_numbers" id="datatable-responsive_paginate">
+                                <ul class="pagination" id="paginationContent">
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Script{
+    <script src="~/admin/dashboard/vendor/switchery/dist/switchery.min.js"></script>
+    <script src="~/app/shrared/shunshine.js"></script>
+    <script src="~/app/shrared/file-manager/index.js"></script>
+    <script src="~/app/shrared/paginate.js"></script>
+    <script src="~/app/shrared/file-manager/dropzone.js"></script>
+    <script src="~/app/controllers/product_category/index.js"></script>
+    <script>
+        var prodcutCategoryController = new ProductCategoryController(
+            "@Url.Action("GetAllCategoryTree", "ProductCategory", new { Area = "admin" })",
+            "@Url.Action("GetAllPaginate", "ProductCategory", new { Area = "admin"})"
+        );
+        prodcutCategoryController.inital();
+
+
+        var fileManager = new FileManagerController(
+            "@Url.Action("GetAllFolder", "FileManager", new { Area = "admin" })",
+        );
+        fileManager.Initial();
+
+        //var uploadFile = new uploadDropZone();
+        //uploadFile.Initial();
+    </script>
+
+}
+@await Html.PartialAsync("_Form.cshtml")
+@await Html.PartialAsync("~/Areas/Admin/Views/Shared/FileManager/Index.cshtml");

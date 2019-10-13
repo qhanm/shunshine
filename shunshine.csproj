@@ -1,0 +1,36 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <UserSecretsId>aspnet-shunshine-8E28E8D2-47D3-4DFF-8DA4-525767429B4B</UserSecretsId>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="9.0.0" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Folder Include="Datas\" />
+    <Folder Include="wwwroot\admin\css\admin-side\" />
+    <Folder Include="wwwroot\admin\dashboard\plugins\" />
+    <Folder Include="wwwroot\admin\images\" />
+    <Folder Include="wwwroot\datas\files\" />
+    <Folder Include="wwwroot\datas\images\2018\" />
+    <Folder Include="wwwroot\datas\images\2019\1\" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Content Update="wwwroot\admin\dashboard\vendor\jquery-validation-1.19.1\dist\localization\messages_az - Copy.min.js">
+      <DependentUpon>messages_az - Copy.js</DependentUpon>
+    </Content>
+  </ItemGroup>
+
+</Project>

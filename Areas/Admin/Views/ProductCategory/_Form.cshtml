@@ -1,0 +1,139 @@
+﻿<div class="modal fade" id="createCategory" tabindex="-1" role="dialog" aria-labelledby="Category" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" id="Category" style="font-size:20px">Category Form</span>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="/" method="post" class="form-horizontal form-label-left">
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
+                            Name
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <input type="text" id="txtName" name="Name" class="form-control col-md-12 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
+                            Slug
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <input type="text" id="txtSeoAlias" name="SeoAlias" class="form-control col-md-12 col-xs-12">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
+                            Description
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <textarea class="form-control" name="Description" id="txtDescription" rows="3" placeholder="Description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
+                            Parent
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <select class="form-control" id="ParrentId" name="ParentId">
+                                <option value="">--- Choose parent ---</option>
+                            </select>
+                        </div>
+                    </div>
+                    @*<div class="form-group">
+            <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
+                Image
+            </label>
+            <div class="col-md-9 col-sm-9 col-xs-9">
+                <input type="file" id="txtImage" name="Image" class="form-control col-md-12 col-xs-12" onchange="readURL(this);">
+                <br />
+                <img id="image" src="http://placehold.it/180" alt="your image" style="margin-top: 20px;padding-top:10px; display:none" />
+            </div>
+
+        </div>*@
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
+                            Image
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <input type="text" id="txtImage" name="Image" class="form-control col-md-6 col-xs-6">
+                            <a id="chooseImage">Choose Image</a>
+                        </div>
+
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
+                            SeoDescription
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <input type="text" id="txtSeoDescription" name="SeoDescription" class="form-control col-md-12 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
+                            SeoKeywords
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <input type="text" id="txtSeoKeywords" name="SeoKeywords" class="form-control col-md-12 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
+                            SeoPageTitle
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <input type="text" id="txtSeoPageTitle" name="SeoPageTitle" class="form-control col-md-12 col-xs-12">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
+                            Status
+                        </label>
+                        <div class="col-md-9 col-sm-9 col-xs-9">
+                            <input type="checkbox" name="status" id="txtStatus" class="js-switch" checked />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    //$(document).ready(function () {
+    //    $(document).on("click", "#chooseImage", function () {
+    //        var finder = new CKFinder();
+
+    //        finder.selectActionFunction(function (url) {
+    //            $("#txtImage").val(url);
+    //        })
+
+    //        finder.pupup();
+    //    })
+    //})
+
+    //function readURL(input) {
+
+    //    $("#image").css({ "display": "block"});
+
+    //    if (input.files && input.files[0]) {
+    //        var reader = new FileReader();
+
+    //        reader.onload = function (e) {
+    //            $('#image')
+    //                .attr('src', e.target.result);
+    //        };
+
+    //        reader.readAsDataURL(input.files[0]);
+    //    }
+    //}
+</script>
