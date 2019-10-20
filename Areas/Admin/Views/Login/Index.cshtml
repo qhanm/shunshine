@@ -1,62 +1,168 @@
 ﻿
-@{
-    ViewData["Title"] = "Shunshine - Login Dashboard";
-}
 
 <!DOCTYPE html>
-<html lang="en">
+<html class="no-js css-menubar" lang="en">
 <head>
-    <title>Login V19</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="~/favicon.ico" />
-    <link href="~/admin/dashboard/vendor/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/admin/css/style_login.css" rel="stylesheet" />
-    <link href="~/admin/css/custom.css" rel="stylesheet" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <meta name="description" content="bootstrap admin template">
+    <meta name="author" content="">
+
+    <title>Login V3 | Remark Admin Template</title>
+
+    <link rel="apple-touch-icon" href="~/admin/dashboard/assets/images/apple-touch-icon.png">
+    <link rel="shortcut icon" href="~/admin/dashboard/assets/images/favicon.ico">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="~/admin/dashboard/global/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/admin/dashboard/global/css/bootstrap-extend.min.css">
+    <link rel="stylesheet" href="~/admin/dashboard/assets/css/site.min.css">
+
+    <!-- Plugins -->
+    <link rel="stylesheet" href="~/admin/dashboard/global/vendor/animsition/animsition.css">
+    <link rel="stylesheet" href="~/admin/dashboard/global/vendor/asscrollable/asScrollable.css">
+    <link rel="stylesheet" href="~/admin/dashboard/global/vendor/switchery/switchery.css">
+    <link rel="stylesheet" href="~/admin/dashboard/global/vendor/intro-js/introjs.css">
+    <link rel="stylesheet" href="~/admin/dashboard/global/vendor/slidepanel/slidePanel.css">
+    <link rel="stylesheet" href="~/admin/dashboard/global/vendor/flag-icon-css/flag-icon.css">
+    <link rel="stylesheet" href="~/admin/dashboard/assets/examples/css/pages/login-v3.css">
+
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="~/admin/dashboard/global/fonts/web-icons/web-icons.min.css">
+    <link rel="stylesheet" href="~/admin/dashboard/global/fonts/brand-icons/brand-icons.min.css">
+    <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,300italic'>
+
+    <!--[if lt IE 9]>
+    <script src="../../../global/vendor/html5shiv/html5shiv.min.js"></script>
+    <![endif]-->
+    <!--[if lt IE 10]>
+    <script src="../../../global/vendor/media-match/media.match.min.js"></script>
+    <script src="../../../global/vendor/respond/respond.min.js"></script>
+    <![endif]-->
+    <!-- Scripts -->
+    <script src="~/admin/dashboard/global/vendor/breakpoints/breakpoints.js"></script>
+    <script>
+        Breakpoints();
+    </script>
 </head>
-<body>
-    <div class="container">
-        <div class="card card-container">
-            <img id="profile-img" class="profile-img-card" src="~/admin/images/avatar_2x.png" />
-            <p id="profile-name" class="profile-name-card"></p>
-            <form class="form-signin" id="frmLogin" method="post">
-                <span id="reauth-email" class="reauth-email"></span>
-                <p class="shunshine-invalid" id="login-vaild"></p>
-                <input type="text" id="txtUsername" name="UserName" class="form-control" placeholder="UserName">
-                @*<p style="color:red" class="error errorUserName" id="errorUserName"></p>*@
-                <input type="password" id="txtPassword" name="Password" class="form-control" placeholder="Password">
-              
-                <div id="remember" class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me" name="RememberMe"> Remember me
-                    </label>
+<body class="animsition page-login-v3 layout-full">
+    <!--[if lt IE 8]>
+        <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Page -->
+    <div class="page vertical-align text-center" data-animsition-in="fade-in" data-animsition-out="fade-out">
+        >
+        <div class="page-content vertical-align-middle animation-slide-top animation-duration-1">
+            <div class="panel">
+                <div class="panel-body">
+                    <div class="brand">
+                        <img class="brand-img" src="~/public/images/root/logo-colored.png" alt="...">
+                        <h2 class="brand-text font-size-18">Remark</h2>
+                    </div>
+                    <form method="post" action="#">
+
+                        <div class="form-group form-material floating">
+                            <p class="red-600 float-left" id="txtErrorLogin"></p>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="form-group form-material floating" data-plugin="formMaterial">
+                            <input type="text" class="form-control" name="UserName" id="txtUserName" value="qhnam.67"/>
+                            <label class="floating-label">UserName</label>
+                        </div>
+                        <div class="form-group form-material floating" data-plugin="formMaterial">
+                            <input type="password" class="form-control" name="Passsword" id="txtPassword"  value="123456!@@#"/>
+                            <label class="floating-label">Password</label>
+                        </div>
+                        <div class="form-group clearfix">
+                            <div class="checkbox-custom checkbox-inline checkbox-primary checkbox-lg float-left">
+                                <input type="checkbox" id="inputCheckbox" name="remember">
+                                <label for="inputCheckbox">Remember me</label>
+                            </div>
+                            <a class="float-right" href="forgot-password.html">Forgot password?</a>
+                        </div>
+                        <button type="button" id="btnSubmitLogin" class="btn btn-primary btn-block btn-lg mt-40">Sign in</button>
+                    </form>
+                    <p>Still no account? Please go to <a href="register-v3.html">Sign up</a></p>
                 </div>
+            </div>
 
-                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit" id="btnLogin">Sign in</button>
-            </form><!-- /form -->
-            <a href="#" class="forgot-password">
-                Forgot the password?
-            </a>
-        </div><!-- /card-container -->
-    </div><!-- /container -->
-    <script src="~/admin/dashboard/vendor/jquery/dist/jquery.js"></script>
-    <script src="~/admin/dashboard/vendor/bootstrap/dist/js/bootstrap.js"></script>
-    <script src="~/admin/dashboard/vendor/jquery-validation-1.19.1/dist/jquery.validate.js"></script>
-    <script src="~/admin/dashboard/vendor/jquery-validation-1.19.1/dist/additional-methods.js"></script>
+            <footer class="page-copyright page-copyright-inverse">
+                <p>WEBSITE BY Creation Studio</p>
+                <p>© 2018. All RIGHT RESERVED.</p>
+                <div class="social">
+                    <a class="btn btn-icon btn-pure" href="javascript:void(0)">
+                        <i class="icon bd-twitter" aria-hidden="true"></i>
+                    </a>
+                    <a class="btn btn-icon btn-pure" href="javascript:void(0)">
+                        <i class="icon bd-facebook" aria-hidden="true"></i>
+                    </a>
+                    <a class="btn btn-icon btn-pure" href="javascript:void(0)">
+                        <i class="icon bd-google-plus" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <!-- End Page -->
+    <!-- Core  -->
+    <script src="~/admin/dashboard/global/vendor/babel-external-helpers/babel-external-helpers.js"></script>
+    <script src="~/admin/dashboard/global/vendor/jquery/jquery.js"></script>
+    <script src="~/admin/dashboard/global/vendor/popper-js/umd/popper.min.js"></script>
+    <script src="~/admin/dashboard/global/vendor/bootstrap/bootstrap.js"></script>
+    <script src="~/admin/dashboard/global/vendor/animsition/animsition.js"></script>
+    <script src="~/admin/dashboard/global/vendor/mousewheel/jquery.mousewheel.js"></script>
+    <script src="~/admin/dashboard/global/vendor/asscrollbar/jquery-asScrollbar.js"></script>
+    <script src="~/admin/dashboard/global/vendor/asscrollable/jquery-asScrollable.js"></script>
+    <script src="~/admin/dashboard/global/vendor/ashoverscroll/jquery-asHoverScroll.js"></script>
 
-    <script src="~/admin/dashboard/vendor/jquery-validation-1.19.1/dist/localization/messages_vi.js"></script>
-    <script src="~/app/shrared/shunshine.js"></script>
-    <script src="~/app/controllers/login/index.js"></script>
+    <!-- Plugins -->
+    <script src="~/admin/dashboard/global/vendor/switchery/switchery.js"></script>
+    <script src="~/admin/dashboard/global/vendor/intro-js/intro.js"></script>
+    <script src="~/admin/dashboard/global/vendor/screenfull/screenfull.js"></script>
+    <script src="~/admin/dashboard/global/vendor/slidepanel/jquery-slidePanel.js"></script>
+    <script src="~/admin/dashboard/global/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+    <!-- Scripts -->
+    <script src="~/admin/dashboard/global/js/Component.js"></script>
+    <script src="~/admin/dashboard/global/js/Plugin.js"></script>
+    <script src="~/admin/dashboard/global/js/Base.js"></script>
+    <script src="~/admin/dashboard/global/js/Config.js"></script>
+
+    <script src="~/admin/dashboard/assets/js/Section/Menubar.js"></script>
+    <script src="~/admin/dashboard/assets/js/Section/GridMenu.js"></script>
+    <script src="~/admin/dashboard/assets/js/Section/Sidebar.js"></script>
+    <script src="~/admin/dashboard/assets/js/Section/PageAside.js"></script>
+    <script src="~/admin/dashboard/assets/js/Plugin/menu.js"></script>
+
+    <script src="~/admin/dashboard/global/js/config/colors.js"></script>
+    <script src="~/admin/dashboard/assets/js/config/tour.js"></script>
+    <script>Config.set('assets', '~/admin/dashboard/assets');</script>
+
+    <!-- Page -->
+    <script src="~/admin/dashboard/assets/js/Site.js"></script>
+    <script src="~/admin/dashboard/global/js/Plugin/asscrollable.js"></script>
+    <script src="~/admin/dashboard/global/js/Plugin/slidepanel.js"></script>
+    <script src="~/admin/dashboard/global/js/Plugin/switchery.js"></script>
+    <script src="~/admin/dashboard/global/js/Plugin/jquery-placeholder.js"></script>
+    <script src="~/admin/dashboard/global/js/Plugin/material.js"></script>
 
     <script>
-        //console.log("@Url.Action("Authen", "Login", new { Area = "Admin" })");
-        var logincontroller = new LoginController(
-            "@Url.Action("Authen", "Login", new { Area = "admin" })",
-             "@Url.Action("Index", "Home", new { Area = "admin" })"
-        );
-        logincontroller.initial();
+        (function (document, window, $) {
+            'use strict';
+
+            var Site = window.Site;
+            $(document).ready(function () {
+                Site.run();
+            });
+        })(document, window, jQuery);
+    </script>
+    <script src="~/app/controllers/login/index.js"></script>
+    <script>
+        var loginController = new LoginController();;
+
+        loginController.Initial();
     </script>
 </body>
 </html>
-

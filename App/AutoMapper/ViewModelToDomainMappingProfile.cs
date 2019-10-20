@@ -30,7 +30,7 @@ namespace shunshine.App.AutoMapper
             CreateMap<PageViewModel, Page>().ConstructUsing(c => new Page(c.Name, c.Alias, c.Content, c.Status));
             CreateMap<PermissionViewModel, Permission>().ConstructUsing(c => new Permission(c.RoleId, c.FunctionId, c.CanCreate, c.CanRead, c.CanUpdate, c.CanDelete));
             CreateMap<ProductViewModel, Product>().ConstructUsing(c => new Product(c.Name, c.CategoryId, c.Image, c.Price, c.OriginalPrice, c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.HotFlag, c.Tags, c.Unit, c.Status, c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
-            CreateMap<ProductCategoryViewModel, ProductCategory>().ConstructUsing(c => new ProductCategory(c.Name, c.Description, c.ParentId, c.HomeOrder, c.Image, c.HomeFlag, c.SortOrder, c.Status, c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
+            CreateMap<ProductCategoryViewModel, ProductCategory>().ConstructUsing(c => new ProductCategory(c.Id, c.Name, c.Description, c.ParentId, c.HomeOrder, c.Image, c.HomeFlag, c.SortOrder, c.Status, c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription));
             CreateMap<ProductImageViewModel, ProductImage>().ConstructUsing(c => new ProductImage(c.ProductId, c.Path, c.Caption));
             CreateMap<ProductQuantityViewModel, ProductQuantity>().ConstructUsing(c => new ProductQuantity(c.ProductId, c.SizeId, c.ColorId, c.Quantity));
             CreateMap<ProductTagViewModel, ProductTag>().ConstructUsing(c => new ProductTag(c.ProductId, c.TagId));

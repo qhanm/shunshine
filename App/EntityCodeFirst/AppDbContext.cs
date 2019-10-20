@@ -71,15 +71,17 @@ namespace shunshine.App.EntityCodeFirst
             #region Custom Id Config
 
             builder.Entity<AdvertistmentPosition>(config =>
-                config.Property(c => c.Id).HasMaxLength(20).IsRequired()
-            );
+            {
+                config.Property(c => c.Id).HasMaxLength(20).IsRequired();
+                config.HasIndex(c => c.Name).IsUnique();
+            }) ;
+            
 
             // multi config using { }
             builder.Entity<BlogTag>(config =>
             {
                 config.Property(c => c.TagId).IsRequired().HasMaxLength(50).IsUnicode(false);
-            }
-            );
+            });
 
             builder.Entity<Contact>(config =>
             {
@@ -119,8 +121,11 @@ namespace shunshine.App.EntityCodeFirst
             );
 
             builder.Entity<AppUser>(config =>
-                config.Property(c => c.Balance).HasColumnType("decimal(10,3)")
-            );
+                {
+                    config.Property(c => c.Balance).HasColumnType("decimal(10,3)");
+                    config.HasIndex(c => c.UserName).IsUnique();
+                    config.HasIndex(c => c.Email).IsUnique();
+                });
 
             builder.Entity<BillDetail>(config =>
                 config.Property(c => c.Price).HasColumnType("decimal(10,3)")
@@ -149,6 +154,12 @@ namespace shunshine.App.EntityCodeFirst
             builder.Entity<Announcement>(config =>
                 config.Property(c => c.Id).HasMaxLength(128).HasColumnType("varchar(128)").IsRequired()
             );
+
+            builder.Entity<ProductCategory>(config =>
+            {
+                config.HasIndex(c => c.Name).IsUnique();
+                config.HasIndex(c => c.SeoAlias).IsUnique();
+            });
 
             #endregion Custom Id Config
 

@@ -14,5 +14,17 @@ namespace shunshine.App.ApplicationServices.ServiceInterfaces
         PageResult<ProductCategoryViewModel> GetAllPaginate(int pageCurrent, int pageSize, string keyword);
 
         Task<List<ProductCategoryViewModel>> GetAllParent();
+
+        void Create(ProductCategoryViewModel productCategoryViewModel);
+
+        void Update(ProductCategoryViewModel productCategoryViewModel);
+
+        void Save();
+
+        bool IsUnique(string slug);
+
+        ProductCategoryViewModel FindById(int id);
+
+        void DeleteById(int id);
     }
 }

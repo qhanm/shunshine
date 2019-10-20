@@ -1,83 +1,43 @@
-﻿var FileManagerController = function (urlGetListFolder) {
+﻿var FileManagerController = function () {
 
     this.Initial = function () {
         registerEvent();
     }
 
     var registerEvent = function () {
-
-        loadListImage();
-
-        loadListYear();
-
         swichTab();
+        loadListImagePaginate();
 
-        //loadListRootPath(true, shunshine.configs.rootPathFileManager, "level1");
+        //loadListImage();
 
-        //$(document).unbind("click", ".fileManangetFolderSub").on("click", ".fileManangetFolderSub", function (e) {
+        //loadListYear();
 
-        //    e.preventDefault();
+        //swichTab();
 
-        //    if (e.handled !== true) // This will prevent event triggering more then once
-        //    {
-        //        var isClicked = false;
+        $(document).on("click", ".fileManagerCheckboxImage", function () {
 
-        //        if ($(this).hasClass("shunshine-cliecked")) {
-        //            isClicked = true;
-        //        } else {
-        //            $(this).addClass("shunshine-cliecked");
-        //        }
+            if ($(this).hasClass("isChecked")) {
+                $(this).removeClass("isChecked");
+            } else {
+                $(this).addClass("isChecked");
+            }
 
-                
-
-        //        var folderName = $(this).data("folder");
-
-        //        var selecttorId = $(this).data("id");
-
-        //        let level = "level2";
-
-        //        let levelResult = $(this).parent().parent().data("level");
-
-        //        if (levelResult == "level1") {
-        //            let level = "level2";
-        //            folderName = $("#" + selecttorId).parent().parent().data("folder") + "/" + folderName;
-
-        //        } else if (levelResult == "level2") {
-        //            //console.log("vao day");
-        //            level = "level3";
-        //            folderName = $("#" + selecttorId).parent().parent().parent().parent().data("folder")
-        //                + "/" + $("#" + selecttorId).parent().parent().data("folder")
-        //                + "/" + folderName;
-        //        }
-
-        //        folderName = shunshine.configs.rootPathFileManager + "/" + folderName;
-
-        //        loadListRootPath(false, folderName, level, selecttorId, isClicked);
-
-        //        e.handled = true;
-        //    }
-
+        })
+        $(".fileManagerCheckboxImage").each(function () {
             
+        });
+        //$(document).on("click", ".image-checkbox", function (e) {
+        //    $(this).toggleClass('image-checkbox-checked');
+        //    var $checkbox = $(this).find('input[type="checkbox"]');
+        //    $checkbox.prop("checked", !$checkbox.prop("checked"))
+        //    $checkbox.addClass("checked-value");
+        //    e.preventDefault();
         //})
 
-        //$(document).on("click", ".active-change", function() {
-
-        //    $("#contentListFile").find(".shunshine-active").removeClass("shunshine-active");
-
-        //    $(this).addClass("shunshine-active");
+        //$(document).on("click", ".folder-month", function () {
+        //    console.log($(this).parent());
+        //    loadListImage($(this).parent().data("year") ,$(this).data("folder"));
         //})
-
-        //$(document).on("click", ".folder-year", function() {
-
-        //    if ($(this).data("toggle") == "active") {
-        //        $(this).parent().find("ul").css({ "display": "none" })
-        //        $(this).data("toggle", "null");
-        //    } else {
-        //        $(this).parent().find("ul").css({ "display": "block" })
-        //        $(this).data("toggle", "active");
-        //    }   
-        //})
-
 
         $(document).on("click", "#btnAddUpload", function (event) {
             $("#txtAddUpload").click();
@@ -125,106 +85,81 @@
             count = 0;
         })
     }
-    var loadListYear  = function () {
-        $.ajax({
-            type: "GET",
-            url: "/admin/filemanager/getlistyeas",
-            success: function (response) {
-                var render = "<ul class='menu-muilty file-manager-folder'>";
 
-                $.each(response, function(key, value) {
-                    render += "<li data-folder='" + value + "' class='active-change folder-year' data-yearp='" + value + "'><i class='fa fa-folder' aria-hidden='true'></i>" + " " + value + "</li>";
-                    render += loadListMonth(value);
-                    
-                })
 
-                render += "</ul>";
-                $("#fileManagerSideberContent").html(render);
-                //loadListFile(folderRoot);
-            },
-            error: function (response) {
-                console.log(response);
-            }
+    var swichTab = function () {
+        $(document).on("click", "#btnSwichTabListImage", function () {
+            $("#tabListImage").css({ "display": "block" });
+            $("#tabUploadImage").css({ "display": "none" });
+            loadListImagePaginate();
+        })
+
+        $(document).on("click", "#btnSwichTabUpload", function () {
+
+            $("#tabListImage").css({ "display": "none" });
+            $("#tabUploadImage").css({ "display": "block" });
         })
     }
 
-    var loadListMonth = function(year) {
-
-        var result = "";
-
+    var loadListImagePaginate = function () {
         $.ajax({
             type: "GET",
-            url: "/admin/filemanager/getlistmonths",
+            url: "/admin/FileManager/getListPaginageImage",
             data: {
-                year: year
-            },
-            async: false,
-            success: function(response) {
-                
-                if (response) {
-
-                    var render = "<ul class='menu-muilty sub-menu-folder-month toggle-folder-sub' data-year='" + year + "'>";
-
-                    $.each(response, function(k, v) {
-
-                        render += "<li data-folder='" + v + "' class='active-change folder-month'><i class='fa fa-folder' aria-hidden='true'></i>" + " " + v + "</li>";
-                    })
-
-                    render += "</ul>";
-
-                    result = render;
-                }
-                
-            },
-            error: function(response) {
-                console.log(response);
-            }
-        })
-
-        return result;
-    }
-
-    var loadListImage = function (query = "all") {
-        $.ajax({
-            type: "GET",
-            url: "/admin/filemanager/getlistimage",
-            data: {
-                query: query
+                pageCurrent: 1,
+                pageSize: 20,
+                keyword: "",
             },
             success: function (response) {
 
                 var render = "";
 
-                $.each(response, function (key, value) {
+                $.each(response.Results, function (key, value) {
                     render += `
-                            <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center" data-idimage="${value.Id}" >
-                                <label class="image-checkbox">
-                                    <img class="img-responsive" src="${value.Url}" />
-                                    <input type="checkbox" name="image[]" value="" />
-                                    <i class="fa fa-check hidden"></i>
-                                </label>
-                            </div>
-                                `;
+                            <li class="animation-fade animation-scale-up" data-idLi="${value.Id}" style="animation-fill-mode: backwards; animation-duration: 250ms; animation-delay: 0ms;">
+                                <div class="media-item" style="height:300px" data-toggle="slidePanel" data-url="panel.tpl">
+                                    <div class="checkbox-custom checkbox-primary checkbox-lg">
+                                        <input type="checkbox" class="selectable-item fileManagerCheckboxImage" data-checkboxId="${value.Id}" id="checkbox-${value.Id}" value="${value.Url}">
+                                        <label for="checkbox-${value.Id}"></label>
+                                    </div>
+                                    <div class="image-wrap">
+                                        <img class="image rounded ss-image-file-manager"  src="${value.Url}" alt="${value.Name}">
+                                    </div>
+                                    <div class="info-wrap">
+                                        <div class="dropdown">
+                                            <span class="icon wb-settings" data-toggle="dropdown" aria-expanded="false" role="button" data-animation="scale-up"></span>
+                                            <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-pencil" aria-hidden="true"></i>Edit</a>
+                                                <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-download" aria-hidden="true"></i>Download</a>
+                                                <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-trash" aria-hidden="true"></i>Delete</a>
+                                            </div>
+                                        </div>
+                                        <div class="title"><a href="${value.Url}" target="_blank">${shunshine.cutString(value.Name, 13)}</a></div>
+                                        <div class="time">1 minutes ago</div>
+                                        <div class="media-item-actions btn-group">
+                                            <button class="btn btn-icon btn-pure btn-default" data-original-title="Edit" data-toggle="tooltip" data-editImage="${value.Id}" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                <i class="icon wb-pencil" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="btn btn-icon btn-pure btn-default" data-original-title="Download" data-toggle="tooltip" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                <i class="icon wb-download" aria-hidden="true"></i>
+                                            </button>
+                                            <button class="btn btn-icon btn-pure btn-default" data-original-title="Delete" data-toggle="tooltip" data-deleteId="${value.Id}" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                <i class="icon wb-trash" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            `;
                 })
-                console.log(render);
-                $("#rowConentImageList").html(render);
+
+                $("#shunshineFileManagerListImageContent").html(render);
             },
             error: function (response) {
                 console.log(response);
+                alertify.error('Error when loading list image');
             }
         })
     }
 
-    var swichTab = function () {
-        $(document).on("click", "#btnSwichFileList", function () {
-            $("#contentListFile").css({ "display": "block" });
-            $("#contentFileUpload").css({ "display": "none" });
-        })
-
-        $(document).on("click", "#btnSwichUpload", function() {
-            console.log("1313");
-            $("#contentListFile").css({ "display": "none" });
-            $("#contentFileUpload").css({ "display": "block" });
-        })
-    }
 }

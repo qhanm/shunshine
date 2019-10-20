@@ -1,4 +1,5 @@
 ﻿using shunshine.App.Models.ViewModels;
+using shunshine.App.Utilities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,8 @@ namespace shunshine.App.ApplicationServices.ServiceInterfaces
 
         List<string> GetListMonth(int year);
 
-        List<ImageViewModel> GetAll(string query);
+        List<ImageViewModel> GetAll(string year, string month);
+
+        PageResult<ImageViewModel> GetAll(int pageCurrent, int pageSize, string keyword);
     }
 }

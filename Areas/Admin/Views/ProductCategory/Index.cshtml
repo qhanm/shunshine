@@ -5,150 +5,207 @@
 }
 
 @section Styles{
-    <link href="~/admin/dashboard/vendor/switchery/dist/switchery.min.css" rel="stylesheet" />
-    <link rel="stylesheet/less" type="text/css" href="~/admin/css/admin-side/css/treeview-css.less">
-    <link href="~/admin/css/custom.css" rel="stylesheet" />
+    <link href="~/admin/css/style-custom.css" rel="stylesheet" />
 }
-<div class="page-title">
-    <div class="title_left">
-        <h3>List Product Category</h3>
-    </div>
 
+<div class="panel-content shunshine-page-content">
+    <div class="panel-body container-fluid">
+        <div class="row row-lg">
+            <div class="col-xl-12">
+                <!-- Example Tabs Solid -->
+                <div class="example-wrap">
+                    <div class="nav-tabs-horizontal" data-plugin="tabs">
+                        <ul class="nav nav-tabs nav-tabs-solid" role="tablist">
+                            <li class="nav-item" role="presentation"><a class="nav-link active" data-toggle="tab" href="#categoryList" aria-controls="exampleTabsSolidOne" role="tab">Category List</a></li>
+                            <li class="nav-item" role="presentation"><a class="nav-link" data-toggle="tab" href="#position" aria-controls="exampleTabsSolidTwo" role="tab">Position</a></li>
+                            <li class="dropdown nav-item" role="presentation" style="display: none;">
+                                <a class="dropdown-toggle nav-link" data-toggle="dropdown" href="#" aria-expanded="false">Dropdown </a>
+                                <div class="dropdown-menu" role="menu">
+                                    <a class="dropdown-item" data-toggle="tab" href="#exampleTabsSolidOne" aria-controls="categoryList" role="tab">Category List</a>
+                                    <a class="dropdown-item" data-toggle="tab" href="#exampleTabsSolidTwo" aria-controls="position" role="tab">Position</a>
+                                </div>
+                            </li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="categoryList" role="tabpanel">
+                                <div class="row container-fluid">
+                                    <div class="col-md-6">
+                                        <button type="button" class="btn btn-outline btn-primary" id="btnCreate">
+                                            <i class="icon wb-add-file" aria-hidden="true"></i>
+                                            Create
+                                        </button>
+                                        <button type="button" class="btn btn-outline btn-danger" id="btnDelete">
+                                            <i class="icon wb-trash" aria-hidden="true"></i>
+                                            Delete
+                                        </button>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="text" class="form-control" id="txtSearchCategory" placeholder="Search...">
+                                                <span class="input-group-append">
+                                                    <button type="submit" id="btnSearchCategory" class="btn btn-primary"><i class="icon wb-search" aria-hidden="true"></i></button>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <div class="form-group">
+                                            <select data-plugin="selectpicker" id="paginateShowLimit" class="form-control">
+                                                <option value="10">10</option>
+                                                <option value="20">20</option>
+                                                <option value="50">50</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <table class="table table-hover" data-plugin="selectable" data-row-selectable="true">
+                                    <thead>
+                                        <tr>
+                                            <th class="w-50">
+                                                <span class="checkbox-custom checkbox-primary">
+                                                    <input class="selectable-all" type="checkbox">
+                                                    <label></label>
+                                                </span>
+                                            </th>
+                                            <th>
+                                                Id
+                                            </th>
+                                            <th>
+                                                Name
+                                            </th>
+                                            <th class="hidden-sm-down">
+                                                Slug
+                                            </th>
 
-</div>
-<div class="clearfix"></div>
-<div class="row">
-    <div class="x_panel">
-        <div class="x_title">
-            <button type="button" class="btn btn-success" data-toggle="modal" data-target="#createCategory">Create</button>
-            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#fileManager">Delete</button>
-            <ul class="nav navbar-right panel_toolbox">
-                <li>
-                    <a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-                    <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a href="#">Settings 1</a>
-                        </li>
-                        <li>
-                            <a href="#">Settings 2</a>
-                        </li>
-                    </ul>
-                </li>
-                <li>
-                    <a class="close-link"><i class="fa fa-close"></i></a>
-                </li>
-            </ul>
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
-            <div class="col-md-3 col-sm-4" id="categoryLeft">
-            </div>
-            <div class="col-md-9 col-sm-8">
-                <div class="row">
-                    <div class="col-sm-3 col-md-3">
-                        <div class="title_left select-paginate">
-                            <select class="form-control" style="width: 70px" id="pageSize">
-                                <option>10</option>
-                                <option>20</option>
-                                <option>50</option>
-                                <option>100</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm=3 col-md-3">
-                        <div class="title_left select-paginate">
-                            <select class="form-control" style="width: 110px" id="slStatus">
-                                <option>All</option>
-                                <option>Active</option>
-                                <option>DeActice</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-sm-6 col-md-6">
-                        <div class="title_right">
-                            <div class="form-group pull-right top_search">
-                                <div class="input-group">
-                                    <input type="text" id="txtSearch" class="form-control" placeholder="Search for...">
-                                    <span class="input-group-btn">
-                                        <button class="btn btn-default" type="button">Go!</button>
-                                    </span>
+                                            <th class="hidden-sm-down">
+                                                Date Created
+                                            </th>
+                                            <th class="hidden-sm-down">
+                                                Status
+                                            </th>
+                                            <th>
+                                                Action
+                                            </th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="tbodyContent">
+                                        <tr>
+                                            <td>
+                                                <span class="checkbox-custom checkbox-primary">
+                                                    <input class="selectable-item" type="checkbox" id="row-619" value="619">
+                                                    <label for="row-619"></label>
+                                                </span>
+                                            </td>
+                                            <td>619</td>
+                                            <td>The sun climbing plan</td>
+                                            <td>
+                                            </td>
+                                            <td>
+                                            </td>
+                                            <td></td>
+                                            <td class="text-nowrap">
+                                                <button type="button" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="View" aria-describedby="tooltip662061">
+                                                    <i class="icon wb-eye" aria-hidden="true"></i>
+                                                </button><button type="button" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Edit" aria-describedby="tooltip662061">
+                                                    <i class="icon wb-wrench" aria-hidden="true"></i>
+                                                </button>
+                                                <button type="button" class="btn btn-sm btn-icon btn-flat btn-default" data-toggle="tooltip" data-original-title="Delete">
+                                                    <i class="icon wb-close" aria-hidden="true"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <div class="row ">
+                                    <div class="col-md-6">
+                                        <em>show 10 -20 / 200</em>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <ul id="paginateCategory" class="float-right"> </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                <div class="clearfix"></div>
-                <div class="table-responsive">
-                    <table class="table table-striped jambo_table bulk_action">
-                        <thead>
-                            <tr class="headings">
-                                <th>
-                                    <input type="checkbox" name="checkAll" id="checkAll" value="run" />
-                                </th>
-                                <th class="column-title">Name </th>
-                                <th class="column-title">Slug </th>
-                                <th class="column-title">Status </th>
-                                <th class="column-title">DateCreated </th>
-                                <th class="column-title">Date Modified </th>
-                                <th class="column-title no-link last">
-                                    <span class="nobr">Action</span>
-                                </th>
-
-                            </tr>
-                        </thead>
-                        <tbody id="tblContent">
-                        </tbody>
-                    </table>
-                    <div class="row">
-                        <div class="col-sm-6">
-                            <div class="" id="pageInfo">
-
+                            <div class="tab-pane" id="position" role="tabpanel">
+                                Ambigua huc ipsarum similique malis physicis splendide, miser philosophi tria finitum
+                                errata hominum emolumento officii explicabo appellantur,
+                                suscipiet inciderit spatio, quantumcumque disciplinae maluisti
+                                putarent cogitemus. Voluerint adipiscendarum aristotele
+                                invidi fructuosam.
                             </div>
 
                         </div>
-                        <div class="col-sm-6">
-                            <div class="dataTables_paginate paging_simple_numbers" id="datatable-responsive_paginate">
-                                <ul class="pagination" id="paginationContent">
-                                </ul>
-                            </div>
-                        </div>
-
                     </div>
-
                 </div>
+                <!-- End Example Tabs Solid -->
             </div>
         </div>
     </div>
 </div>
-
-@section Script{
-    <script src="~/admin/dashboard/vendor/switchery/dist/switchery.min.js"></script>
+<div id="fileManagerContent"></div>
+<div id="modalShowCategoryDetail"></div>
+@section Scripts{
     <script src="~/app/shrared/shunshine.js"></script>
-    <script src="~/app/shrared/file-manager/index.js"></script>
-    <script src="~/app/shrared/paginate.js"></script>
-    <script src="~/app/shrared/file-manager/dropzone.js"></script>
     <script src="~/app/controllers/product_category/index.js"></script>
     <script>
-        var prodcutCategoryController = new ProductCategoryController(
-            "@Url.Action("GetAllCategoryTree", "ProductCategory", new { Area = "admin" })",
-            "@Url.Action("GetAllPaginate", "ProductCategory", new { Area = "admin"})"
-        );
-        prodcutCategoryController.inital();
+        var prodcutCategoryController = new ProductCategoryController();
+        prodcutCategoryController.Initial();
 
 
-        var fileManager = new FileManagerController(
-            "@Url.Action("GetAllFolder", "FileManager", new { Area = "admin" })",
-        );
-        fileManager.Initial();
+        $(document).on("click", "#btnCreate", function () {
+            $("#modalCreateCategory").modal("show");
+            $("#frmCategoryShowMessage").html("");
 
-        //var uploadFile = new uploadDropZone();
-        //uploadFile.Initial();
+            $.ajax({
+                type: "GET",
+                url: "/admin/productcategory/GetListParent",
+                success: function (response) {
+                    var render = "";
+                    render += "<option value=''>--- Choose Parent ---</option>";
+                    $.each(response, function(key, value){
+                        render += "<option value='"+value.Id+"'>"+value.Name+"</option>";
+                    })
+
+                    $("#txtParentId").html(render);
+                },
+                error: function (response) {
+                    console.log(response);
+                    shunshine.showMessageError("Error when loading parent cateogory")
+                }
+            })
+        })
+
+        $(document).on("click", ".btnChooseFileName", function (event) {
+            event.preventDefault();
+
+            $.ajax({
+                type: "GET",
+                url: "/admin/FileManager/GetFileManagerPartial",
+                beforeSend: function (data) {
+                    shunshine.startLoading();
+                },
+                success: function (data) {
+                    $("#fileManagerContent").html(data);
+                    shunshine.stopLoading();
+                }
+            })
+
+            setTimeout(function () {
+                $("#shunshineFileManager").modal("show");
+            }, 1000);
+
+        })
+
+        $(document).on("click", "#btnChooseImage",function () {
+            var srcImage = $("#shunshineFileManagerListImageContent").find(".isChecked").first().val();
+            $("#shunshineFileManager").modal("hide");
+            $("#txtImage").val(srcImage);
+        })
     </script>
 
 }
 @await Html.PartialAsync("_Form.cshtml")
-@await Html.PartialAsync("~/Areas/Admin/Views/Shared/FileManager/Index.cshtml");
+@*@await Html.PartialAsync("~/Areas/Admin/Views/Shared/FileManager/Index.cshtml")*@
+
+

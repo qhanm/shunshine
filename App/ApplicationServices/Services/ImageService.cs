@@ -7,6 +7,7 @@ using shunshine.App.AutoMapper;
 using shunshine.App.EntityCodeFirst;
 using shunshine.App.EntityCodeFirst.Entities;
 using shunshine.App.Models.ViewModels;
+using shunshine.App.Utilities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,23 +43,64 @@ namespace shunshine.App.ApplicationServices.Services
             GC.SuppressFinalize(this);
         }
 
-        public List<ImageViewModel> GetAll()
+        public PageResult<ImageViewModel> GetAll(int pageCurrent, int pageSize, string keyword)
         {
-            throw new NotImplementedException();
+            var query = _repository.FindAll();
+
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                query = query.Where(x => x.Name == keyword);
+            }
+
+            int totalRow = query.Count();
+
+            query = query.OrderByDescending(x => x.DateModified).Skip((pageCurrent - 1) * pageSize).Take(pageSize);
+
+            var data = query.ProjectTo<ImageViewModel>(AutoMapperConfig.RegisterMapping()).ToList();
+
+            var paginateResult = new PageResult<ImageViewModel>()
+            {
+                Results = data,
+                CurrnetPage = pageCurrent,
+                PageSize = pageSize,
+                RowCount = totalRow
+            };
+
+            return paginateResult;
+
         }
 
         public List<ImageViewModel> GetAll(string query)
         {
-            var images = _repository.FindAll().OrderByDescending(x => x.DateCreated);
+            var images = _repository.FindAll();
 
             if (!string.IsNullOrEmpty(query))
             {
-                images.Where(x => x.Month == int.Parse(query));
+                images = images.Where(x => x.Month == int.Parse(query));
             }
 
-            var result = images.ProjectTo<ImageViewModel>(AutoMapperConfig.RegisterMapping()).ToList();
+            var result = images.OrderByDescending(x => x.DateCreated).ProjectTo<ImageViewModel>(AutoMapperConfig.RegisterMapping()).ToList();
 
             return result;
+        }
+
+        public List<ImageViewModel> GetAll(string year, string month)
+        {
+            var images = _repository.FindAll();
+
+            if (!string.IsNullOrEmpty(year) && !string.IsNullOrEmpty(month))
+            {
+                images = images.Where(x => x.Year == int.Parse(year) && x.Month == int.Parse(month));
+            }
+
+            var result = images.OrderByDescending(x => x.DateCreated).ProjectTo<ImageViewModel>(AutoMapperConfig.RegisterMapping()).ToList();
+
+            return result;
+        }
+
+        public List<ImageViewModel> GetAll()
+        {
+            throw new NotImplementedException();
         }
 
         public List<ImageViewModel> GetByMonthFolder(Guid userId, int folder)
@@ -129,5 +171,6 @@ namespace shunshine.App.ApplicationServices.Services
         {
             _unitOfWork.Commit();
         }
+
     }
 }

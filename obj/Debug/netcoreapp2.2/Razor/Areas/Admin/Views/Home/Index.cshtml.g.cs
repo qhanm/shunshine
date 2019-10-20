@@ -28,8 +28,13 @@ using shunshine.App.Models.ViewModels;
 
 #line default
 #line hidden
+#line 4 "C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\Areas\Admin\Views\_ViewImports.cshtml"
+using shunshine.App.EntityCodeFirst.Constant;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"40ffbbcaed91587a3ba3240dccfc500835e9f68a", @"/Areas/Admin/Views/Home/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"bd62b4d80745e0d3b3dbd8aa64f6743f06df9f84", @"/Areas/Admin/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a280b538e9840c87dcf9d493e49476466691f57d", @"/Areas/Admin/Views/_ViewImports.cshtml")]
     public class Areas_Admin_Views_Home_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #pragma warning disable 1998

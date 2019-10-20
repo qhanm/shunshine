@@ -1,30 +1,58 @@
 ﻿@model List<FunctionViewModel>
 
 
-<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-    <div class="menu_section">
-        <h3>General</h3>
-        <ul class="nav side-menu">
-            @foreach (var item in Model.Where(x => string.IsNullOrEmpty(x.ParentId)))
-            {
-                <li>
-                    <a><i class="fa @item.IconCss"></i> @item.Name <span class="fa fa-chevron-down"></span></a>
-
-                    @if (Model.Any(x => x.ParentId == item.ParentId))
+<div class="site-menubar">
+    <div class="site-menubar-body">
+        <div>
+            <div>
+                <ul class="site-menu" data-plugin="menu">
+                    <li class="site-menu-category">General</li>
+                    @foreach (var item in Model.Where(x => string.IsNullOrEmpty(x.ParentId)))
                     {
-                        <ul class="nav child_menu">
-                            @foreach (var i in Model.Where(x => x.ParentId == item.ParentId))
+                        <li class="site-menu-item has-sub">
+                            <a href="javascript:void(0)">
+                                <i class="@item.IconCss site-menu-icon" aria-hidden="true"></i>
+                                <span class="site-menu-title"> @item.Name</span>
+                                <div class="site-menu-badge">
+                                    <span class="badge badge-pill badge-success">@Model.Where(x => x.ParentId == item.Id).Count()</span>
+                                </div>
+                            </a>
+
+                            @if (Model.Any(x => x.ParentId == item.Id))
                             {
-                                <li><a href="@i.URL">@i.Name</a></li>
+                                <ul class="site-menu-sub">
+                                    @foreach (var jitem in Model.Where(x => x.ParentId == item.Id))
+                                    {
+                                        <li class="site-menu-item active">
+                                            <a class="animsition-link" href="@jitem.URL">
+                                                <span class="site-menu-title">@jitem.Name</span>
+                                            </a>
+                                        </li>
+                                    }
+                                </ul>
                             }
-                        </ul>
+
+                        </li>
                     }
 
 
-                </li>
-            }
-        </ul>
+                </ul>
+
+            </div>
+        </div>
     </div>
 
+    <div class="site-menubar-footer">
+        <a href="javascript: void(0);" class="fold-show" data-placement="top" data-toggle="tooltip"
+           data-original-title="Settings">
+            <span class="icon wb-settings" aria-hidden="true"></span>
+        </a>
+        <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Lock">
+            <span class="icon wb-eye-close" aria-hidden="true"></span>
+        </a>
+        <a href="javascript: void(0);" data-placement="top" data-toggle="tooltip" data-original-title="Logout">
+            <span class="icon wb-power" aria-hidden="true"></span>
+        </a>
+    </div>
 </div>
 

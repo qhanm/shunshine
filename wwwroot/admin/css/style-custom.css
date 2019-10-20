@@ -1,0 +1,80 @@
+﻿.shunshine-page-content{
+    background-color: #fff;
+}
+
+.sidebarss {
+    background: #f1f4f5;
+}
+
+.shunshineSideBar li {
+    list-style: none;
+    color: blue;
+}
+
+/*.shunshineSideBar li p:hover {
+    background:#26839c; 
+}*/
+
+.shunshineSideBar li p {
+    padding: 10px;
+}
+
+.shunshine-activeRed{
+    color: red;
+}
+
+.shunshine-ul li{
+    list-style: none;
+}
+
+.ss-image-file-manager {
+    max-height: 200px;
+    display: block;
+    margin: auto;
+}
+
+/** Loading */
+.shunshine-loader-box {
+    width: 100%;
+    min-height: 100%;
+    z-index: 100;
+    position: absolute;
+    background-color: #dce1e4;
+    opacity: .6;
+}
+.shunshine-loader {
+    border: 4px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 4px solid #3e8ef7;
+    border-bottom: 4px solid #e49910;
+    width: 50px;
+    height: 50px;
+    -webkit-animation: spin 1s linear infinite; /* Safari */
+    animation: spin 1s linear infinite;
+    position: sticky;
+    top: 50%;
+    left: 55%;
+    z-index: 99999;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+    0% {
+        -webkit-transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(360deg);
+    }
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+/*End loading*/

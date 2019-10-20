@@ -1,120 +1,278 @@
-﻿var ProductCategoryController = function (urlListTreeCategory, urlListTableCategory, urlListParentCategory) {
-    this.inital = function () {
-        registetEvent();
-        registerHandle();
+﻿var ProductCategoryController = function () {
+    this.Initial = function () {
+        registerEvent();
     }
 
-    var registetEvent = function () {
-        loadTreeCagegory();
-        loadTableCategory();
+    var registerEvent = function () {
+        loadListCategory();
+        registerHadle();
     }
 
-    var registerHandle = function () {
-        $(document).on("change", "#pageSize", function () {
-            loadTableCategory();
+    var registerHadle = function () {
+
+        $("#paginateShowLimit").on("change", function () {
+            loadListCategory(true);
+        })
+
+        $("#btnSearchCategory").on("click", function () {
+            loadListCategory(true);
+        })
+
+        $(".selectable-all").on("click", function () {
+            $("#tbodyContent").find('input:checkbox').not(this).prop('checked', this.checked);
+            //$(".checkbox-row").prop("checked");
+        })
+
+        $(document).on("click", "#btnSaveChange", function () {
+
+            var data = $("#frmCreateCategory").serialize();
+
+            saveChagnes(data);
+        })
+
+        $("#txtName").blur(function () {
+            
+            $("#txtSeoAlias").val(shunshine.slug($("#txtName").val()));
+        })
+
+        $(document).on("click", ".btnView", function() {
+            var id = $(this).data("idcategory");
+            getCategoryById(id);
+        })
+
+        $(document).on("click", ".modalClose", function() {
+            $("#modalViewCategoryDetail").modal("hide");
+            setTimeout(function() {
+                $("#modalShowCategoryDetail").html("");
+            }, 500);
+        })
+
+        $(document).on("click", ".btnDelete", function () {
+            var categoryId = $(this).data("idcategory");
+            alertify.confirm("Are you sure delete category?", function (e) {
+                if (e) {
+                    deleteCategoryById(categoryId);
+                    //alertify.success("You've clicked OK");
+                }
+            });
         })
     }
 
-    var loadTreeCagegory = function () {
+    var loadListCategory = function (ischangePageSize = false) {
+
+        let pageSize = $("#paginateShowLimit").val();
+
+        let keyword = $("#txtSearchCategory").val();
+
         $.ajax({
-            url: urlListTreeCategory,
             type: "GET",
-            success: function (response) {
-                var render = "<ul class='menu-muilty'>";
-
-                $.each(response, function (key, value) {
-                    render += "<li><i class='fa fa-folder' aria-hidden='true'></i><a href='javascript:void(0)' data-id='" + value.parent.Id + "'>"+ "  " + value.parent.Name + "</a></li>";
-                    
-                    if (value.chirld.length > 0) {
-                        render += "<ul>";
-                        $.each(value.chirld, function (k, v) {
-                            render += "<li><i class='fa fa-folder' aria-hidden='true'><a href='javascript:void(0)' data-id='" + v.Id + "'>" + v.Name + "</a></li>";
-                        })
-                        render += "</ul>";
-                    }
-                })
-
-                render += "</ul>";
-
-                $("#categoryLeft").html(render);
-            },
-            error: function (response) {
-                alertify.error("An error occurred during loading");
-                console.log(response);
-            }
-        })
-    }
-
-    var loadTableCategory = function () {
-
-        let pageSize = $("#pageSize").val();
-
-        let pageCurrent = $("#pageCurrentId").data("idx");
-
-        if (pageCurrent == undefined) {
-            pageCurrent = 1;
-        }
-
-        let keyword = $("#txtSearch").val();
-
-        $.ajax({
-            type: "get",
-            url: urlListTableCategory,
+            url: "/admin/productcategory/GetAllPaginate",
             data: {
-                pageCurrent: pageCurrent,
+                pageCurrent: shunshine.configs.pageIndex,
                 pageSize: pageSize,
                 keyword: keyword
             },
+            beforeSend: function() {
+                shunshine.startLoading();
+            },
             success: function (response) {
-                let render = "";
-
+                var render = "";
                 $.each(response.Results, function (key, value) {
-
-                    let classTr = key % 2 == 0 ? "even" : "odd";
-                    // <td class=" "><img width="50px" height="50px" src="${value.Image ? value.Image : '/admin/images/null.png'}" /></td>
+                    
                     render += `
-                    <tr class="${key % 2 == 0 ? "even" : "odd"} pointer">
-                        <td class="a-center ">
-                            <input type="checkbox" name="category[${value.Id}]" id="${value.Id}" value="run" class="flat" />
-                        </td>
-                        <td class=" ">${value.Name} </td>
-                        <td class=" ">${value.SeoAlias}</td>
-                        <td class=" ">${shunshine.getStatus(value.SeoAlias)}</td>
-                        <td class="a-right a-right ">${shunshine.dateTimeFormatJson(value.DateCreated)}</td>
-                        <td class="a-right a-right ">${shunshine.dateTimeFormatJson(value.DateModified)}</td>
-                        <td class=" last">
-                             <a class="btn  btn-sm btn-edit" data-id="{{Id}}"><i class="fa fa-pencil"></i></a>
-                            <a class="btn  btn-sm btn-delete" data-id="{{Id}}"><i class="fa fa-trash"></i></a>
-                        </td>
-                    </tr>
-                    `;
+                            <tr>
+                                <td>
+                                    <span class="checkbox-custom checkbox-primary">
+                                        <input class="selectable-item checkbox-row" data-id="${value.Id}" type="checkbox" id="row-${value.Id}" value="${value.Id}">
+                                        <label for="row-${value.Id}"></label>
+                                    </span>
+                                </td>
+                                <td>${value.Id}</td>
+                                <td>${value.Name}</td>
+                                <td>${value.SeoAlias}</td>
+                                <td>${shunshine.dataTimeFormat(value.DateCreated)}</td>
+                                <td>${shunshine.getStatus(value.Status)}</td >
+                                <td class="text-nowrap">
+                                    <button type="button" class="btn btn-sm btn-icon btn-flat btn-default btnView" data-idCategory="${value.Id}" data-toggle="tooltip" data-original-title="View" aria-describedby="tooltip662061">
+                                        <i class="icon wb-eye" aria-hidden="true"></i>
+                                    </button><button type="button" class="btn btn-sm btn-icon btn-flat btn-default btnEdit" data-idCategory="${value.Id}" data-toggle="tooltip" data-original-title="Edit" aria-describedby="tooltip662061">
+                                        <i class="icon wb-wrench" aria-hidden="true"></i>
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-icon btn-flat btn-default btnDelete"  data-idCategory="${value.Id}" data-toggle="tooltip" data-original-title="Delete">
+                                        <i class="icon wb-close" aria-hidden="true"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            `;
                 })
 
-                $("#tblContent").html(render);
-                var renderPage = shunshinePaginate.page(response.CurrnetPage, response.PageCount);
-                //var renderPage = shunshinePaginate.page(2, 9);
-                $("#paginationContent").html(renderPage);
-                shunshinePaginate.showInfoPage(response.CurrnetPage, pageSize, response.RowCount, "#pageInfo");
+                $("#tbodyContent").html(render);
+                
+                ShunshinePaginate(response.PageCount, response.CurrentPage, function () {
+                    
+                    loadListCategory();
+                }, ischangePageSize);
+                shunshine.stopLoading();
             },
-            error: function (response) {
-                alertify.error("An error occurred during loading");
+            error: function(response) {
+                shunshine.stopLoading();
+                alert("Error loading ...");
                 console.log(response);
             }
         })
     }
 
-    var loadListParent = function(){
+    var saveChagnes = function(data) {
+
+        $.ajax({
+            type: "POST",
+            url: "/admin/productcategory/SaveEntity",
+            data: data,
+            beforeSend: function (data) {
+                shunshine.startLoading();
+            },
+            success: function(data) {
+                if (!data.Success) {
+                    if (data.Data.hasOwnProperty("modelErrors")) {
+                        var dataArray = data.Data.modelErrors;
+
+                        var render = "";
+
+                        $.each(dataArray[0], function(key, value) {
+                            if (value) {
+                                render += "<li class='shunshine-activeRed'>" + value + "</li>";
+                            }
+                        })
+
+                        $("#frmCategoryShowMessage").html(render);
+                    } else {
+                        var render = "";
+                        $.each(data.Data, function(key, value) {
+  
+                            if (value != "" || value != null) {
+                                render += "<li class='shunshine-activeRed'>" + value + "</li>";
+                            }
+                        })
+
+                        $("#frmCategoryShowMessage").html(render);
+
+                    }
+                    shunshine.showMessageError('Create category not success');
+                } else {
+                    shunshine.showMessageSuccess('Create category success');
+                    $("#frmCreateCategory").trigger("reset");
+                    loadListCategory(true);
+                }
+                
+                shunshine.stopLoading();
+            },
+            error: function (data) {
+                console.log(data);
+                shunshine.showMessageError("Error when create product category");
+            }
+        })
+    }
+
+
+    var ShunshinePaginate = function (totalPage, currentPage, callBack, isChangePageSize = false) {
+
+        if (isChangePageSize == true) {
+            $('#paginateCategory').empty();
+            $('#paginateCategory').removeData("twbs-pagination");
+            $('#paginateCategory').unbind("page");
+        }
+
+        $('#paginateCategory').twbsPagination({
+            totalPages: totalPage,
+            startPage: currentPage,
+            visiblePages: 5,
+            initiateStartPageClick: true,
+            href: false,
+            hrefVariable: '{{number}}',
+            first: 'First',
+            prev: 'Previous',
+            next: 'Next',
+            last: 'Last',
+            loop: false,
+            onPageClick: function (event, p) {
+                shunshine.configs.pageIndex = p;
+                setTimeout(callBack(), 200);
+            },
+            //onPageClick: function (event, page) {
+            //    $('.page-active').removeClass('page-active');
+            //    $('#page' + page).addClass('page-active');
+            //},
+
+            // pagination Classes
+            paginationClass: 'pagination',
+            nextClass: 'next',
+            prevClass: 'prev',
+            lastClass: 'last',
+            firstClass: 'first',
+            pageClass: 'page',
+            activeClass: 'active',
+            disabledClass: 'disabled'
+
+        });
+
+        $("#paginateCategory").find("li").removeClass("page");
+    }
+
+    var getCategoryById = function(id) {
+
         $.ajax({
             type: "GET",
-            url: urlListParentCategory,
-            success: function (response) {
-
+            url: "/admin/productcategory/getbyid/"+id,
+            beforeSend: function() {
+                shunshine.startLoading();
             },
-            error: function (response) {
+            async: false, 
+            success: function(response) {
+                if (response.hasOwnProperty("Success") && response.Success == false) {
+                    shunshine.showMessageError("Product category not found");
+                } else {
+                    result = true;
+                    $("#modalShowCategoryDetail").html(response);
+                    $('#modalViewCategoryDetail').modal({ backdrop: 'static', keyboard: false })
+                    setTimeout(function() {
+                        $("#modalViewCategoryDetail").modal("show");
+                    }, 1000);
+                }
+                shunshine.stopLoading();
+            },
+            error: function(response) {
                 console.log(response);
-                alertify.error("An error occurred during loading");
+                shunshine.showMessageError("Error when loading category detail");
+                shunshine.stopLoading();
             }
+            
         })
     }
 
+    var deleteCategoryById = function (id) {
+        $.ajax({
+            type: "POST",
+            url: "/admin/productcategory/deletecategorybyid",
+            data: {
+                Id: id
+            },
+            beforeSend: function () {
+                shunshine.startLoading();
+            },
+            success: function (response) {
+                if (response.Success) {
+                    shunshine.showMessageSuccess("Delete category success");
+                    loadListCategory(true);
+                } else {
+                    shunshine.showMessageError("An error occurred while deleting");
+                }
+                shunshine.stopLoading();
+            },
+            error: function (response) {
+                console.log(response);
+                shunshine.showMessageError("An error occurred while deleting");
+                shunshine.stopLoading();
+            }
+        })
+    }
 }

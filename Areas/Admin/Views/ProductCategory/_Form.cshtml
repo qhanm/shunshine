@@ -1,139 +1,116 @@
-﻿<div class="modal fade" id="createCategory" tabindex="-1" role="dialog" aria-labelledby="Category" aria-hidden="true">
+﻿<div class="modal fade" id="modalCreateCategory" tabindex="-1" role="dialog" aria-labelledby="Category" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="modal-title" id="Category" style="font-size:20px">Category Form</span>
+                <span class="modal-title" id="Category" style="font-size:20px">Category Form Create</span>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <form action="/" method="post" class="form-horizontal form-label-left">
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
-                            Name
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <input type="text" id="txtName" name="Name" class="form-control col-md-12 col-xs-12">
+                <div class="container-fuild" style="padding: 0px 30px">
+                    <form id="frmCreateCategory" method="post">
+                        <div class="form-group row">
+                            <div class="col-md-9 pull-right offset-3" style="padding: 0px">
+                                <ul class="shunshine-ul" id="frmCategoryShowMessage">
+            
+                                </ul>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
-                            Slug
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <input type="text" id="txtSeoAlias" name="SeoAlias" class="form-control col-md-12 col-xs-12">
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
-                            Description
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <textarea class="form-control" name="Description" id="txtDescription" rows="3" placeholder="Description"></textarea>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
-                            Parent
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <select class="form-control" id="ParrentId" name="ParentId">
-                                <option value="">--- Choose parent ---</option>
-                            </select>
-                        </div>
-                    </div>
-                    @*<div class="form-group">
-            <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
-                Image
-            </label>
-            <div class="col-md-9 col-sm-9 col-xs-9">
-                <input type="file" id="txtImage" name="Image" class="form-control col-md-12 col-xs-12" onchange="readURL(this);">
-                <br />
-                <img id="image" src="http://placehold.it/180" alt="your image" style="margin-top: 20px;padding-top:10px; display:none" />
-            </div>
-
-        </div>*@
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
-                            Image
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <input type="text" id="txtImage" name="Image" class="form-control col-md-6 col-xs-6">
-                            <a id="chooseImage">Choose Image</a>
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label">Name </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="txtName" name="Name" autocomplete="off">
+                            </div>
                         </div>
 
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
-                            SeoDescription
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <input type="text" id="txtSeoDescription" name="SeoDescription" class="form-control col-md-12 col-xs-12">
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label">Slug </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="txtSeoAlias" name="SeoAlias" autocomplete="off">
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
-                            SeoKeywords
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <input type="text" id="txtSeoKeywords" name="SeoKeywords" class="form-control col-md-12 col-xs-12">
+
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label">Description </label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="Description" id="txtDescription" rows="3"></textarea>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
-                            SeoPageTitle
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <input type="text" id="txtSeoPageTitle" name="SeoPageTitle" class="form-control col-md-12 col-xs-12">
+
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label">Parent </label>
+                            <div class="col-md-9">
+                                <select class="form-control" id="txtParentId" name="ParentId">
+                                </select>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-3" for="last-name">
-                            Status
-                        </label>
-                        <div class="col-md-9 col-sm-9 col-xs-9">
-                            <input type="checkbox" name="status" id="txtStatus" class="js-switch" checked />
+
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label">Image </label>
+                            <div class="col-md-9">
+                                <div class="input-group input-group-file" data-plugin="inputGroupFile">
+                                    <input type="text" class="form-control" id="txtImage" name="Image">
+                                    <div class="input-group-append">
+                                        <span class="btn btn-success btn-file btnChooseFileName">
+                                            <i class="icon wb-upload" aria-hidden="true"></i>
+                                            <input type="file" name="" multiple="">
+                                        </span>
+                                    </div>
+                                </div>
+                               
+                            </div>
                         </div>
-                    </div>
-                </form>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label">Parent </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="txtParentId" name="ParentId" autocomplete="off">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label">SeoPageTitle </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="txtSeoPageTitle" name="SeoPageTitle" autocomplete="off">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label">SeoKeywords </label>
+                            <div class="col-md-9">
+                                <input type="text" class="form-control" id="txtSeoKeywords" name="SeoKeywords" autocomplete="off">
+                            </div>
+                        </div>  
+                        
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label">SeoDescription </label>
+                            <div class="col-md-9">
+                                <textarea class="form-control" name="Description" id="txtDescription" rows="3"></textarea>
+                            </div>
+                        </div>                        
+                        <div class="form-group row">
+                            <label class="col-md-3 form-control-label">Status </label>
+                            <div class="col-md-9">
+                                <select class="form-control" name="Status" id="txtStatus">
+                                    <option value="1">Active</option>
+                                    <option value="0">DeActive</option>
+                                </select>                            
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+                <button type="submit" class="btn btn-primary" id="btnSaveChange">Save changes</button>
             </div>
         </div>
     </div>
 </div>
 
 <script>
-
-    //$(document).ready(function () {
-    //    $(document).on("click", "#chooseImage", function () {
-    //        var finder = new CKFinder();
-
-    //        finder.selectActionFunction(function (url) {
-    //            $("#txtImage").val(url);
-    //        })
-
-    //        finder.pupup();
-    //    })
+    //$(document).on("click", "#chooseImage", function () {
+    //    $("#fileManager").modal("show");
     //})
-
-    //function readURL(input) {
-
-    //    $("#image").css({ "display": "block"});
-
-    //    if (input.files && input.files[0]) {
-    //        var reader = new FileReader();
-
-    //        reader.onload = function (e) {
-    //            $('#image')
-    //                .attr('src', e.target.result);
-    //        };
-
-    //        reader.readAsDataURL(input.files[0]);
-    //    }
-    //}
 </script>

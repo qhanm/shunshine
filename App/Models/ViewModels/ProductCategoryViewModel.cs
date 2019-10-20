@@ -1,12 +1,15 @@
 ﻿using shunshine.App.EntityCodeFirst.Constant;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace shunshine.App.Models.ViewModels
 {
     public class ProductCategoryViewModel
     {
         public int Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -28,6 +31,6 @@ namespace shunshine.App.Models.ViewModels
         public string SeoKeywords { set; get; }
         public string SeoDescription { set; get; }
 
-        public virtual ICollection<ProductViewModel> Products { set; get; }
+        public ICollection<ProductViewModel> Products { set; get; }
     }
 }

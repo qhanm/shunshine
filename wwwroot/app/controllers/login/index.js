@@ -1,52 +1,43 @@
-﻿var LoginController = function (paramUrlLogin, paramUrlHomeIndex) {
+﻿var LoginController = function () {
 
-    this.initial = function () {
-        
-        registerEvent();
+    this.Initial = function () {
+        registerEvent()
     }
 
     var registerEvent = function () {
 
-        $(document).on("click", "#btnLogin", function (event) {
-            console.log("click");
-            //event.preventDefault();
+        $(document).on("click", "#btnSubmitLogin", function (event) {
 
-            $("#frmLogin").validate({
-                debug: true,
-                errorClass: "shunshine-invalid",
-                rules: {
-                    UserName: "required",
-                    Password: "required"
-                }
-             
-            })
+            event.preventDefault();
+            var userName = $("#txtUserName").val();
 
-            let UserName = $("#txtUsername").val();
-            let PassWord = $("#txtPassword").val();
+            var password = $("#txtPassword").val();
 
-            login(UserName, PassWord);
+            login(userName, password);
         })
     }
 
-    var login = function (UserName, PassWord) {
+    var registerHandle = function () {
+
+    }
+
+    var login = function (txtUserName, txtPassword) {
         $.ajax({
             type: "POST",
-            url: paramUrlLogin,
+            url: "/admin/login/authen",
             data: {
-                UserName: UserName,
-                Password: PassWord
+                UserName: txtUserName,
+                Password: txtPassword,
             },
             success: function (response) {
-                if (response.Success) {
-                    window.location.href = paramUrlHomeIndex;
+                if (response.Success == true) {
+                    window.location.href = "/admin/home/index";
                 } else {
-                    $("#login-vaild").text(response.Message);
-                    //shunshine.showMessage("#errorLogin", response.Message);
+                    $("#txtErrorLogin").text(response.Message);
                 }
             },
             error: function (response) {
-                console.log(response);
-                //shunshine.showMessage("#errorLogin", response.Message);
+
             }
         })
     }

@@ -1,0 +1,69 @@
+﻿@model ProductCategoryViewModel
+
+<div class="modal fade" id="modalViewCategoryDetail" tabindex="-1" role="dialog" aria-labelledby="Category" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <span class="modal-title" id="Category" style="font-size:20px">Category Form Create</span>
+                <button type="button" class="close modalClose" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="container-fuild" style="padding: 0px 30px">
+                    <table class="table table-hover toggle-circle footable footable-4 footable-filtering footable-filtering-right footable-paging footable-paging-center breakpoint breakpoint-sm">
+                        <tr>
+                            <th>Name</th>
+                            <td>@Model.Name</td>
+                        </tr>
+                        <tr>
+                            <th>Slug</th>
+                            <td>@Model.SeoAlias</td>
+                        </tr>
+                        <tr>
+                            <th>Description</th>
+                            <td>@Model.Description</td>
+                        </tr>
+                        <tr>
+                            <th>Parent</th>
+                            <td>@ViewBag.ParentName</td>
+                        </tr>
+                        <tr>
+                            <th>Image</th>
+                            <td>
+                                <img src="@Model.Image" alt="@Model.Name" style="max-width: 300px" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>SeoPageTitle</th>
+                            <td>@Model.SeoPageTitle</td>
+                        </tr>
+                        <tr>
+                            <th>SeoKeywords</th>
+                            <td>@Model.SeoKeywords</td>
+                        </tr>
+                        <tr>
+                            <th>SeoDescription</th>
+                            <td>@Model.SeoDescription</td>
+                        </tr>
+                        <tr>
+                            <th>Status</th>
+                            <td>
+                                @if (@Model.Status == Status.Active) {
+                                    <span class="badge badge-pill badge-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="badge badge-warning">Block</span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary modalClose" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -8,38 +8,12 @@
         urlFileManagerUploadFileDZ: "/admin/FileManager/UploadFile",
         rootPathUrl: "https://localhost:5001/",
     },
-    notify: function (message, type) {
-        $.notify(message, {
-            // whether to hide the notification on click
-            clickToHide: true,
-            // whether to auto-hide the notification
-            autoHide: true,
-            // if autoHide, hide after milliseconds
-            autoHideDelay: 5000,
-            // show the arrow pointing at the element
-            arrowShow: true,
-            // arrow size in pixels
-            arrowSize: 5,
-            // position defines the notification position though uses the defaults below
-            position: '...',
-            // default positions
-            elementPosition: 'top left',
-            globalPosition: 'top right',
-            // default style
-            style: 'bootstrap',
-            // default class (string or [string])
-            className: type,
-            // show animation
-            showAnimation: 'slideDown',
-            // show animation duration
-            showDuration: 400,
-            // hide animation
-            hideAnimation: 'slideUp',
-            // hide animation duration
-            hideDuration: 200,
-            // padding between element and notification
-            gap: 2
-        })
+
+    dataTimeFormat: function (datetime) {
+        let current_datetime = new Date(datetime);
+        let formatted_date = current_datetime.getFullYear() + "-" + (current_datetime.getMonth() + 1) + "-" + current_datetime.getDate() + " " + current_datetime.getHours() + ":" + current_datetime.getMinutes() + ":" + current_datetime.getSeconds()
+
+        return formatted_date;
     },
 
     dateTimeFormatJson: function (datetime) {
@@ -65,19 +39,16 @@
         return day + "/" + month + "/" + year + " " + hh + ":" + mm + ":" + ss;
     },
     startLoading: function () {
-        if ($('.dv-loading').length > 0)
-            $('.dv-loading').removeClass('hide');
+        $(".shunshine-loader-box").css({ "display": "block" });
     },
     stopLoading: function () {
-        if ($('.dv-loading').length > 0)
-            $('.dv-loading')
-                .addClass('hide');
+        $(".shunshine-loader-box").css({ "display": "none" });
     },
     getStatus: function (status) {
         if (status == 1)
-            return '<span class="badge bg-green">Kích hoạt</span>';
+            return '<span class="badge badge-pill badge-success">Active</span>';
         else
-            return '<span class="badge bg-red">Khoá</span>';
+            return '<span class="badge badge-warning">Block</span>';
     },
     formatNumber: function (number, precision) {
         if (!isFinite(number)) {
@@ -104,16 +75,12 @@
         return roots;
     },
 
-    // ussing input
-    checkAndShowError : function (selector, attribute) {
-        if ($(selector).val() === null || $(selector).val() === "") {
-            $("#error" + attribute).text(attribute + " can't be blank");
-            return null;
-        }
-        return $(selector).val();
+    showMessageSuccess: function(message) {
+        alertify.success(message);
     },
-    showMessage: function (selector, message) {
-        $(selector).text(message);
+
+    showMessageError: function(message) {
+        alertify.error(message);
     },
 
     converToMultiMenu(datas) {
@@ -132,6 +99,37 @@
             str = str.substr(0, number) + "...";
         }
         return str;
+    },
+
+    slug: function(str) {
+        var slug;
+ 
+        //Đổi chữ hoa thành chữ thường
+        slug = str.toLowerCase();
+ 
+        //Đổi ký tự có dấu thành không dấu
+        slug = slug.replace(/á|à|ả|ạ|ã|ă|ắ|ằ|ẳ|ẵ|ặ|â|ấ|ầ|ẩ|ẫ|ậ/gi, 'a');
+        slug = slug.replace(/é|è|ẻ|ẽ|ẹ|ê|ế|ề|ể|ễ|ệ/gi, 'e');
+        slug = slug.replace(/i|í|ì|ỉ|ĩ|ị/gi, 'i');
+        slug = slug.replace(/ó|ò|ỏ|õ|ọ|ô|ố|ồ|ổ|ỗ|ộ|ơ|ớ|ờ|ở|ỡ|ợ/gi, 'o');
+        slug = slug.replace(/ú|ù|ủ|ũ|ụ|ư|ứ|ừ|ử|ữ|ự/gi, 'u');
+        slug = slug.replace(/ý|ỳ|ỷ|ỹ|ỵ/gi, 'y');
+        slug = slug.replace(/đ/gi, 'd');
+        //Xóa các ký tự đặt biệt
+        slug = slug.replace(/\`|\~|\!|\@|\#|\||\$|\%|\^|\&|\*|\(|\)|\+|\=|\,|\.|\/|\?|\>|\<|\'|\"|\:|\;|_/gi, '');
+        //Đổi khoảng trắng thành ký tự gạch ngang
+        slug = slug.replace(/ /gi, "-");
+        //Đổi nhiều ký tự gạch ngang liên tiếp thành 1 ký tự gạch ngang
+        //Phòng trường hợp người nhập vào quá nhiều ký tự trắng
+        slug = slug.replace(/\-\-\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-\-/gi, '-');
+        slug = slug.replace(/\-\-/gi, '-');
+        //Xóa các ký tự gạch ngang ở đầu và cuối
+        slug = '@' + slug + '@';
+        slug = slug.replace(/\@\-|\-\@|\@/gi, '');
+        //In slug ra textbox có id “slug”
+        return slug;
     }
 
 }

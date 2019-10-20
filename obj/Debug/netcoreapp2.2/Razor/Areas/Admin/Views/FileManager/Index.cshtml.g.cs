@@ -28,8 +28,13 @@ using shunshine.App.Models.ViewModels;
 
 #line default
 #line hidden
+#line 4 "C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\Areas\Admin\Views\_ViewImports.cshtml"
+using shunshine.App.EntityCodeFirst.Constant;
+
+#line default
+#line hidden
     [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"73e0ceac35307b9d594f47939a8729fc7ff02c33", @"/Areas/Admin/Views/FileManager/Index.cshtml")]
-    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"bd62b4d80745e0d3b3dbd8aa64f6743f06df9f84", @"/Areas/Admin/Views/_ViewImports.cshtml")]
+    [global::Microsoft.AspNetCore.Razor.Hosting.RazorSourceChecksumAttribute(@"SHA1", @"a280b538e9840c87dcf9d493e49476466691f57d", @"/Areas/Admin/Views/_ViewImports.cshtml")]
     public class Areas_Admin_Views_FileManager_Index : global::Microsoft.AspNetCore.Mvc.Razor.RazorPage<dynamic>
     {
         #line hidden
@@ -68,7 +73,7 @@ using shunshine.App.Models.ViewModels;
             WriteLiteral("\r\n<!DOCTYPE html>\r\n\r\n<html>\r\n");
             EndContext();
             BeginContext(58, 100, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "73e0ceac35307b9d594f47939a8729fc7ff02c333934", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("head", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "73e0ceac35307b9d594f47939a8729fc7ff02c334111", async() => {
                 BeginContext(64, 87, true);
                 WriteLiteral("\r\n    <meta name=\"viewport\" content=\"width=device-width\" />\r\n    <title>Index</title>\r\n");
                 EndContext();
@@ -88,7 +93,7 @@ using shunshine.App.Models.ViewModels;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(160, 330, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "73e0ceac35307b9d594f47939a8729fc7ff02c335208", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("body", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "73e0ceac35307b9d594f47939a8729fc7ff02c335385", async() => {
                 BeginContext(166, 236, true);
                 WriteLiteral("\r\n    <button type=\"button\" class=\"btn btn-success\" data-toggle=\"modal\" data-target=\"#createCategory\">Create</button>\r\n    <button type=\"button\" class=\"btn btn-danger\" data-toggle=\"modal\" data-target=\"#fileManager\">Delete</button>\r\n    ");
                 EndContext();

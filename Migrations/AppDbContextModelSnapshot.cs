@@ -158,6 +158,10 @@ namespace shunshine.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
                     b.HasIndex("PageId");
 
                     b.ToTable("AdvertistmentPositions");
@@ -281,6 +285,14 @@ namespace shunshine.Migrations
                     b.Property<string>("UserName");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Email")
+                        .IsUnique()
+                        .HasFilter("[Email] IS NOT NULL");
+
+                    b.HasIndex("UserName")
+                        .IsUnique()
+                        .HasFilter("[UserName] IS NOT NULL");
 
                     b.ToTable("AppUsers");
                 });
@@ -767,6 +779,14 @@ namespace shunshine.Migrations
                     b.Property<int>("Status");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Name")
+                        .IsUnique()
+                        .HasFilter("[Name] IS NOT NULL");
+
+                    b.HasIndex("SeoAlias")
+                        .IsUnique()
+                        .HasFilter("[SeoAlias] IS NOT NULL");
 
                     b.ToTable("ProductCategories");
                 });

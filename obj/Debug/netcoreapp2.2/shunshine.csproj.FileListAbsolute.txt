@@ -44,3 +44,9 @@ C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\obj\Debug\netcoreapp2.2\Razor\
 C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Shared\FileManager\Index.cshtml.g.cs
 C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Shared\FileManager\_Upload.cshtml.g.cs
 C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\FileManager\Index.cshtml.g.cs
+C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\Shared\_LayoutBackup.cshtml.g.cs
+C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\bin\Debug\netcoreapp2.2\package-lock.json
+C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\FileManager\Index1.cshtml.g.cs
+C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\bin\Debug\netcoreapp2.2\Microsoft.Azure.Documents.ServiceInterop.dll
+C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\bin\Debug\netcoreapp2.2\Cosmos.CRTCompat.dll
+C:\.NetCoreLive\qhnam.myclass\shunshine\shunshine\obj\Debug\netcoreapp2.2\Razor\Areas\Admin\Views\ProductCategory\View.cshtml.g.cs

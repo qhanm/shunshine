@@ -34,6 +34,25 @@ namespace shunshine.App.EntityCodeFirst
             SeoDescription = seoDescription;
         }
 
+        public ProductCategory(int id, string name, string description, int? parentId, int? homeOrder,
+            string image, bool? homeFlag, int sortOrder, Status status, string seoPageTitle, string seoAlias,
+            string seoKeywords, string seoDescription)
+        {
+            Id = id;
+            Name = name;
+            Description = description;
+            ParentId = parentId;
+            HomeOrder = homeOrder;
+            Image = image;
+            HomeFlag = homeFlag;
+            SortOrder = sortOrder;
+            Status = status;
+            SeoPageTitle = seoPageTitle;
+            SeoAlias = seoAlias;
+            SeoKeywords = seoKeywords;
+            SeoDescription = seoDescription;
+        }
+
         public string Name { get; set; }
 
         public string Description { get; set; }

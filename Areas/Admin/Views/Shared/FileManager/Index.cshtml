@@ -1,227 +1,211 @@
-﻿@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-}
-<div class="modal fade" id="fileManager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="" role="document">
+﻿<div style="z-index: 9999;" class="modal fade" id="shunshineFileManager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <span class="modal-title text-center" id="exampleModalLongTitle"><strong>File Manager Shunshine</strong></span>
+                <h3 class="modal-title text-center" id="exampleModalLongTitle">File Manager Shunshine</h3>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <button class="btn btn-success" id="btnSwichFileList">Files list</button>
-                            <button class="btn btn-dark" id="btnSwichUpload">Upload</button>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary">Go!</button>
-                                </span>
+                <div class="row container-fluid" style="padding: 20px; border: 1px solid #0094ff; margin-bottom: 10px; background: #ccd5db;">
+                    <button type="button" class="btn btn-outline btn-primary" id="btnSwichTabListImage">
+                        <i class="icon wb-file" aria-hidden="true"></i>
+                        List File
+                    </button>
+                    <button type="button" class="btn btn-outline btn-dark" id="btnSwichTabUpload" style="margin-left: 10px;">
+                        <i class="icon wb-upload" aria-hidden="true"></i>
+                        Upload
+                    </button>
+                </div>
+                <div class="row container-fluid" id="tabListImage">
+                    <div class="col-sm-3 sidebarss">
+                        <div class="page-aside-inner page-aside-scroll scrollable is-enabled scrollable-vertical" style="position: relative;">
+                            <div data-role="container" class="scrollable-container" style="height: 691px; width: 276px;">
+                                <div data-role="content" class="scrollable-content" style="width: 259px;">
+                                    <section class="page-aside-section">
+                                        <h5 class="page-aside-title">Main</h5>
+                                        <div class="list-group">
+                                            <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-pluse" aria-hidden="true"></i>All</a>
+                                            <a class="list-group-item" href="javascript:void(0)"><i class="icon wb-heart" aria-hidden="true"></i>File</a>
+                                            <a class="list-group-item" href="javascript:void(0)">
+                                                <i class="icon wb-folder" aria-hidden="true"></i>
+                                                Image
+                                            </a>
+                                        </div>
+                                    </section>
+                                </div>
                             </div>
+                            <div class="scrollable-bar scrollable-bar-vertical is-disabled scrollable-bar-hide" draggable="false"><div class="scrollable-bar-handle"></div></div>
                         </div>
                     </div>
-                    <div class="row" id="contentListFile">
-                        <div class="col-sm-2 col-md-2" style="min-height: 300px; background: aliceblue; border-radius: 5px">
-                            <ul class="menu-muilty" id="fm-sidebar">
-                                <li class="shunshine-active active-change"><i class="fa fa-folder" aria-hidden="true"></i> All</li>
-                                <li class="active-change"><i class="fa fa-folder" aria-hidden="true"></i> File</li>
-                                <li class="active-change">
-                                    <i class="fa fa-folder" aria-hidden="true"></i> Image
-                                    <div id="fileManagerSideberContent"></div>
+                    <div class="col-sm-9">
+                        <div id="mediaContent" class="page-content page-content-table" data-plugin="selectable">
 
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-10 col-md-10">
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
-                                        <label class="image-checkbox">
-                                            <img class="img-responsive" src="https://dummyimage.com/600x400/000/fff" />
-                                            <input type="checkbox" name="image[]" value="" />
-                                            <i class="fa fa-check hidden"></i>
-                                        </label>
+                            <!-- Actions -->
+                            <div class="page-content-actions">
+                                <div class="float-right">
+                                    <div class="btn-group media-arrangement" role="group">
+                                        <button class="btn btn-outline btn-default active" id="arrangement-grid" type="button"><i class="icon wb-grid-4" aria-hidden="true"></i></button>
+                                        <button class="btn btn-outline btn-default" id="arrangement-list" type="button"><i class="icon wb-list" aria-hidden="true"></i></button>
                                     </div>
-                                    <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
-                                        <label class="image-checkbox">
-                                            <img class="img-responsive" src="https://dummyimage.com/600x400/000/fff" />
-                                            <input type="checkbox" name="image[]" value="" />
-                                            <i class="fa fa-check hidden"></i>
-                                        </label>
+                                </div>
+                                <div class="actions-inner">
+                                    <div class="checkbox-custom checkbox-primary checkbox-lg">
+                                        <input type="checkbox" id="media_all" class="selectable-all">
+                                        <label for="media_all"></label>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Media -->
+                            <div class="media-list is-grid pb-50" data-plugin="animateList" data-animate="fade" data-child="li">
+                                <ul class="blocks blocks-100 blocks-xxl-4 blocks-xl-3 blocks-lg-3 blocks-md-2 blocks-sm-2" data-plugin="animateList" data-child=">li" id="shunshineFileManagerListImageContent">
+                                    <li class="animation-fade animation-scale-up" style="animation-fill-mode: backwards; animation-duration: 250ms; animation-delay: 0ms;">
+                                        <div class="media-item" data-toggle="slidePanel" data-url="panel.tpl">
+                                            <div class="checkbox-custom checkbox-primary checkbox-lg">
+                                                <input type="checkbox" class="selectable-item" id="media_1">
+                                                <label for="media_1"></label>
+                                            </div>
+                                            <div class="image-wrap">
+                                                <img class="image rounded" src="~/admin/dashboard/global/photos/placeholder.png" alt="...">
+                                            </div>
+                                            <div class="info-wrap">
+                                                <div class="dropdown">
+                                                    <span class="icon wb-settings" data-toggle="dropdown" aria-expanded="false" role="button" data-animation="scale-up"></span>
+                                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                        <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-pencil" aria-hidden="true"></i>Edit</a>
+                                                        <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-download" aria-hidden="true"></i>Download</a>
+                                                        <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-trash" aria-hidden="true"></i>Delete</a>
+                                                    </div>
+                                                </div>
+                                                <div class="title">Lorem ipsum</div>
+                                                <div class="time">1 minutes ago</div>
+                                                <div class="media-item-actions btn-group">
+                                                    <button class="btn btn-icon btn-pure btn-default" data-original-title="Edit" data-toggle="tooltip" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                        <i class="icon wb-pencil" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button class="btn btn-icon btn-pure btn-default" data-original-title="Download" data-toggle="tooltip" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                        <i class="icon wb-download" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button class="btn btn-icon btn-pure btn-default" data-original-title="Delete" data-toggle="tooltip" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                        <i class="icon wb-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="animation-fade animation-scale-up" style="animation-fill-mode: backwards; animation-duration: 250ms; animation-delay: 50ms;">
+                                        <div class="media-item" data-toggle="slidePanel" data-url="panel.tpl">
+                                            <div class="checkbox-custom checkbox-primary checkbox-lg">
+                                                <input type="checkbox" class="selectable-item" id="media_2">
+                                                <label for="media_2"></label>
+                                            </div>
+                                            <div class="image-wrap">
+                                                <img class="image rounded" src="~/admin/dashboard/global/photos/placeholder.png" alt="...">
+                                            </div>
+                                            <div class="info-wrap">
+                                                <div class="dropdown">
+                                                    <span class="icon wb-settings" data-toggle="dropdown" aria-expanded="false" role="button" data-animation="scale-up"></span>
+                                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                        <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-pencil" aria-hidden="true"></i>Edit</a>
+                                                        <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-download" aria-hidden="true"></i>Download</a>
+                                                        <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-trash" aria-hidden="true"></i>Delete</a>
+                                                    </div>
+                                                </div>
+                                                <div class="title">Voluptate pariatur</div>
+                                                <div class="time">20 minutes ago</div>
+                                                <div class="media-item-actions btn-group">
+                                                    <button class="btn btn-icon btn-pure btn-default" data-original-title="Edit" data-toggle="tooltip" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                        <i class="icon wb-pencil" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button class="btn btn-icon btn-pure btn-default" data-original-title="Download" data-toggle="tooltip" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                        <i class="icon wb-download" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button class="btn btn-icon btn-pure btn-default" data-original-title="Delete" data-toggle="tooltip" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                        <i class="icon wb-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                    <li class="animation-fade animation-scale-up" style="animation-fill-mode: backwards; animation-duration: 250ms; animation-delay: 100ms;">
+                                        <div class="media-item" data-toggle="slidePanel" data-url="panel.tpl">
+                                            <div class="checkbox-custom checkbox-primary checkbox-lg">
+                                                <input type="checkbox" class="selectable-item" id="media_3">
+                                                <label for="media_3"></label>
+                                            </div>
+                                            <div class="image-wrap">
+                                                <img class="image rounded" src="~/admin/dashboard/global/photos/placeholder.png" alt="...">
+                                            </div>
+                                            <div class="info-wrap">
+                                                <div class="dropdown">
+                                                    <span class="icon wb-settings" data-toggle="dropdown" aria-expanded="false" role="button" data-animation="scale-up"></span>
+                                                    <div class="dropdown-menu dropdown-menu-right" role="menu">
+                                                        <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-pencil" aria-hidden="true"></i>Edit</a>
+                                                        <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-download" aria-hidden="true"></i>Download</a>
+                                                        <a class="dropdown-item" href="javascript:void(0)"><i class="icon wb-trash" aria-hidden="true"></i>Delete</a>
+                                                    </div>
+                                                </div>
+                                                <div class="title">Laboris Excepteur</div>
+                                                <div class="time">1 hour ago</div>
+                                                <div class="media-item-actions btn-group">
+                                                    <button class="btn btn-icon btn-pure btn-default" data-original-title="Edit" data-toggle="tooltip" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                        <i class="icon wb-pencil" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button class="btn btn-icon btn-pure btn-default" data-original-title="Download" data-toggle="tooltip" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                        <i class="icon wb-download" aria-hidden="true"></i>
+                                                    </button>
+                                                    <button class="btn btn-icon btn-pure btn-default" data-original-title="Delete" data-toggle="tooltip" data-container="body" data-placement="top" data-trigger="hover" type="button">
+                                                        <i class="icon wb-trash" aria-hidden="true"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+
+                                </ul>
+                            </div>
                         </div>
                     </div>
-                    <div class="row" id="contentFileUpload" style="display: none">
 
-                        <div class="container-fluid" id="shunshine-drop">
-                            <div id="actions" class="row">
-                                <div class="col-lg-7">
-                                    <!-- The fileinput-button span is used to style the file input field as button -->
-                                    <span class="btn btn-success fileinput-button " id="btnAddUpload">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                        <span>Add files...</span>
+                </div>
 
-                                    </span>
-                                    <button type="submit" id="btnStartUpload" class="btn btn-primary start">
-                                        <i class="glyphicon glyphicon-upload"></i>
-                                        <span>Start upload</span>
-                                    </button>
-                                </div>
-                                <input type="file" class="hidden" id="txtAddUpload" name="txtAddUpload" multiple />
-                            </div>
-                            <div class="clearfix"></div>
+                <div class="row container-fluid" id="tabUploadImage" style="min-height: 500px; display:none">
+                    <div id="actions" class="">
+                        <div class="col-lg-12" style="text-align:center">
+                            <!-- The fileinput-button span is used to style the file input field as button -->
+                            <span class="btn btn-success fileinput-button " id="btnAddUpload">
+                                <i class="glyphicon glyphicon-plus"></i>
+                                <span>Add files...</span>
 
-                            <div class="row" style="height: 200px; width:100%; border: 2px #21cbcb dotted">
-                                <h3 class="text-center" style="line-height:200px" id="total-file-upload">0 files upload</h3>
-                            </div>
-
+                            </span>
+                            <button type="submit" id="btnStartUpload" class="btn btn-primary start">
+                                <i class="glyphicon glyphicon-upload"></i>
+                                <span>Start upload</span>
+                            </button>
                         </div>
+                        <input type="file" style="display: none" class="hidden" id="txtAddUpload" name="txtAddImageUpload" multiple />
                     </div>
+                    <div class="clearfix"></div>
+
+                    <div class="row" style="height: 200px; width:80%; border: 2px #21cbcb dotted; border-radius: 15px; margin: 20px auto; text-align:center;">
+                        <h3 class="text-center" style="line-height:150px; width: 100%" id="total-file-upload">0 files upload</h3>
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </div>
-</div>
-<script src="~/app/shrared/file-manager/index.js"></script>
-<script>
-
-    var fileManagerController = new FileManagerController(
-        "@Url.Action("GetAllFolder", "FileManager", new { Area = "admin" })"
-    );
-    fileManagerController.Initial();
-
-        $(".image-checkbox").each(function () {
-  if ($(this).find('input[type="checkbox"]').first().attr("checked")) {
-    $(this).addClass('image-checkbox-checked');
-  }
-  else {
-    $(this).removeClass('image-checkbox-checked');
-  }
-});
-
-// sync the state to the input
-$(".image-checkbox").on("click", function (e) {
-  $(this).toggleClass('image-checkbox-checked');
-  var $checkbox = $(this).find('input[type="checkbox"]');
-  $checkbox.prop("checked",!$checkbox.prop("checked"))
-
-  e.preventDefault();
-});
-</script>
-@{
-    ViewData["Title"] = "Index";
-    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
-}
-<div class="modal fade" id="fileManager" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-    <div class="" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <span class="modal-title text-center" id="exampleModalLongTitle"><strong>File Manager Shunshine</strong></span>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6 col-sm-6">
-                            <button class="btn btn-success" id="btnSwichFileList">Files list</button>
-                            <button class="btn btn-dark" id="btnSwichUpload">Upload</button>
-                        </div>
-                        <div class="col-md-6 col-sm-6">
-                            <div class="input-group">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn">
-                                    <button type="button" class="btn btn-primary">Go!</button>
-                                </span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" id="contentListFile">
-                        <div class="col-sm-2 col-md-2" style="min-height: 300px; background: aliceblue; border-radius: 5px">
-                            <ul class="menu-muilty" id="fm-sidebar">
-                                <li class="shunshine-active active-change"><i class="fa fa-folder" aria-hidden="true"></i> All</li>
-                                <li class="active-change"><i class="fa fa-folder" aria-hidden="true"></i> File</li>
-                                <li class="active-change">
-                                    <i class="fa fa-folder" aria-hidden="true"></i> Image
-                                    <div id="fileManagerSideberContent"></div>
-
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="col-sm-10 col-md-10">
-                            <div class="container-fluid">
-                                <div class="row" id="rowConentImageList">
-                                    <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
-                                        <label class="image-checkbox">
-                                            <img class="img-responsive" src="https://dummyimage.com/600x400/000/fff" />
-                                            <input type="checkbox" name="image[]" value="" />
-                                            <i class="fa fa-check hidden"></i>
-                                        </label>
-                                    </div>
-                                    <div class="col-xs-4 col-sm-3 col-md-2 nopad text-center">
-                                        <label class="image-checkbox">
-                                            <img class="img-responsive" src="https://dummyimage.com/600x400/000/fff" />
-                                            <input type="checkbox" name="image[]" value="" />
-                                            <i class="fa fa-check hidden"></i>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row" id="contentFileUpload" style="display: none">
-
-                        <div class="container-fluid" id="shunshine-drop">
-                            <div id="actions" class="row">
-                                <div class="col-lg-7">
-                                    <!-- The fileinput-button span is used to style the file input field as button -->
-                                    <span class="btn btn-success fileinput-button " id="btnAddUpload">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                        <span>Add files...</span>
-
-                                    </span>
-                                    <button type="submit" id="btnStartUpload" class="btn btn-primary start">
-                                        <i class="glyphicon glyphicon-upload"></i>
-                                        <span>Start upload</span>
-                                    </button>
-                                </div>
-                                <input type="file" class="hidden" id="txtAddUpload" name="txtAddUpload" multiple />
-                            </div>
-                            <div class="clearfix"></div>
-
-                            <div class="row" style="height: 200px; width:100%; border: 2px #21cbcb dotted">
-                                <h3 class="text-center" style="line-height:200px" id="total-file-upload">0 files upload</h3>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="modal-footer">
-                <button class="btn btn-secondary">Choose</button>
+                <button class="btn btn-secondary" id="btnChooseImage">Choose</button>
             </div>
         </div>
+
+        
     </div>
 </div>
-<script src="~/app/shrared/file-manager/dropzone-custom.js"></script>
 <script src="~/app/shrared/file-manager/index.js"></script>
 <script>
-
-    var fileManagerController = new FileManagerController(
-        "@Url.Action("GetAllFolder", "FileManager", new { Area = "admin" })"
-    );
+    var fileManagerController = new FileManagerController();
     fileManagerController.Initial();
-
 
 </script>

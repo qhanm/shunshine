@@ -8,5 +8,8 @@
     "jquery-validation": "1.19.1",
     "jquery-validation-unobtrusive": "3.2.11",
     "gentelella": "1.4.0"
+  },
+  "dependencies": {
+    "popper.js": "^1.16.0"
   }
 }

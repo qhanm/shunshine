@@ -1,4 +1,5 @@
-﻿using AutoMapper.QueryableExtensions;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
 using shunshine.App.ApplicationServices.Repositories;
 using shunshine.App.ApplicationServices.ServiceInterfaces;
@@ -19,10 +20,13 @@ namespace shunshine.App.ApplicationServices.Services
 
         private readonly IUnitOfWork _unitOfWork;
 
-        public ProductCategoryService(IRepository<ProductCategory, int> repository, IUnitOfWork unitOfWork)
+        private readonly IMapper _mapper;
+
+        public ProductCategoryService(IRepository<ProductCategory, int> repository, IUnitOfWork unitOfWork, IMapper mapper)
         {
             _repository = repository;
             _unitOfWork = unitOfWork;
+            _mapper = mapper;
         }
 
         public void Dispose()
@@ -51,11 +55,8 @@ namespace shunshine.App.ApplicationServices.Services
 
             if (!string.IsNullOrEmpty(keyword))
             {
-                query = query.Where(x => x.Name.Contains(keyword) || x.Description.Contains(keyword) || x.SeoAlias.Contains(keyword));
+                query = query.Where(x => x.Name.Contains(keyword.ToString()) || x.Description.Contains(keyword) || x.SeoAlias.Contains(keyword));
             }
-
-
-            //.ProjectTo<ProductCategoryViewModel>(AutoMapperConfig.RegisterMapping());
 
             int totalRow = query.Count();
 
@@ -77,9 +78,61 @@ namespace shunshine.App.ApplicationServices.Services
 
         public Task<List<ProductCategoryViewModel>> GetAllParent()
         {
-            var parents = _repository.FindAll().Where(x => !string.IsNullOrEmpty(x.ParentId.ToString())).ProjectTo<ProductCategoryViewModel>(AutoMapperConfig.RegisterMapping()).ToListAsync();
+            var parents = _repository.FindAll().Where(x => string.IsNullOrEmpty(x.ParentId.ToString())).ProjectTo<ProductCategoryViewModel>(AutoMapperConfig.RegisterMapping()).ToListAsync();
 
             return parents;
+        }
+
+        public void Create(ProductCategoryViewModel productCategoryViewModel)
+        {
+            var category = _mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryViewModel);
+
+            _repository.Add(category);
+        }
+
+        public void Update(ProductCategoryViewModel productCategoryViewModel)
+        {
+            var category = _mapper.Map<ProductCategoryViewModel, ProductCategory>(productCategoryViewModel);
+
+            _repository.Update(category);
+        }
+
+        public void Save()
+        {
+            _unitOfWork.Commit();
+        }
+
+        public bool IsUnique(string slug)
+        {
+            if (!string.IsNullOrEmpty(slug))
+            {
+                var query = _repository.FindAll()
+                            .Where(x => x.SeoAlias == slug)
+                            .ProjectTo<ProductCategoryViewModel>(AutoMapperConfig.RegisterMapping())
+                            .ToList();
+                if(query.Count() > 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        public ProductCategoryViewModel FindById(int id)
+        {
+            ProductCategory query = _repository.FindById(id);
+
+            //var category = _mapper.Map<ProductCategory, ProductCategoryViewModel>(query);
+            var category = _repository.FindAll().Where(x => x.Id.Equals(id))
+                                       .ProjectTo<ProductCategoryViewModel>(AutoMapperConfig.RegisterMapping()).FirstOrDefault();
+            return (ProductCategoryViewModel)category;
+        }
+
+        public void DeleteById(int id)
+        {
+            _repository.Remove(id);
         }
     }
 }

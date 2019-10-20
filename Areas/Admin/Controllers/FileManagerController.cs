@@ -157,11 +157,31 @@ namespace shunshine.Areas.Admin.Controllers
 
         public IActionResult GetListImage()
         {
-            string query = HttpContext.Request.Query["query"].ToString();
+            string year = HttpContext.Request.Query["year"];
 
-            var images = _imageServiceInterface.GetAll(query);
+            string month = HttpContext.Request.Query["month"];
+
+            var images = _imageServiceInterface.GetAll(year, month);
 
             return new OkObjectResult(images);
+        }
+
+        public IActionResult getListPaginageImage()
+        {
+            int pageCurrent = int.Parse(HttpContext.Request.Query["pageCurrent"]);
+
+            int pageSize = int.Parse(HttpContext.Request.Query["pageSize"]);
+
+            string keyword = HttpContext.Request.Query["keyword"];
+
+            var results = _imageServiceInterface.GetAll(pageCurrent, pageSize, keyword);
+
+            return new OkObjectResult(results);
+        }
+
+        public PartialViewResult GetFileManagerPartial()
+        {
+            return PartialView("Index");
         }
     }
 }
